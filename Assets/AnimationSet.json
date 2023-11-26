@@ -1,0 +1,26 @@
+{
+    "animations": {
+        "WhiteSmoke": {
+            "asset": "smoke",
+            "steps": 8,
+            "start": 0
+        },
+        "CampFire": {
+            "asset": "decoration",
+            "steps": 4,
+            "start": 4
+        }
+    },
+    "assetsSet": {
+        "smoke": {
+            "asset": "assets/Village Animated Smoke.png",
+            "width": 2,
+            "height": 2
+        },
+        "decoration": {
+            "asset": "assets/Village Animated Decorations.png",
+            "width": 1,
+            "height": 1
+        }
+    }
+}

@@ -1,0 +1,514 @@
+{
+    "maps": {
+        "smallvillage": {
+            "tiledMap": "assets/smallvillage.json",
+            "startPos": {
+                "x": 6,
+                "y": 6
+            },
+            "entrance": [
+                {
+                    "x": 10,
+                    "y": 12,
+                    "to": "shopinside",
+                    "toX": 3,
+                    "toY": 9
+                },
+                {
+                    "x": 6,
+                    "y": 2,
+                    "to": "cave",
+                    "toX": 25,
+                    "toY": 19
+                }
+            ],
+            "villagers": [
+                {
+                    "name": "羅伯特",
+                    "villager": "1",
+                    "pos": {
+                        "x": 2,
+                        "y": 4
+                    },
+                    "asset": "assets/Villager 01.png",
+                    "state": "stay",
+                    "sentences": [
+                        "今天天氣真好，適合砍材",
+                        "村裡聽說來了隻青蛙",
+                        "你知道艾倫嗎?他總是在那邊跑來跑去"
+                    ]
+                },
+                {
+                    "name": "艾倫",
+                    "villager": "3",
+                    "pos": {
+                        "x": 15,
+                        "y": 15
+                    },
+                    "asset": "assets/Villager 03.png",
+                    "state": "movingaround",
+                    "movingrange": {
+                        "width": 3,
+                        "height": 3
+                    },
+                    "sentences":[
+                        "跑啊跑啊",
+                        "青蛙會不會咬人?",
+                        "哇哈哈哈哈哈 ?!",
+                        "..."
+                    ]
+                }
+
+            ]
+        },
+        "shopinside": {
+            "tiledMap": "assets/shopinside.json",
+            "startPos": {
+                "x": 3,
+                "y": 9
+            },
+            "entrance": [
+                {
+                    "x": 3,
+                    "y": 9,
+                    "to": "smallvillage",
+                    "toX": 10,
+                    "toY": 13
+                }
+            ],
+            "villagers": [
+                {
+                    "name": "Shop Owner",
+                    "villager": "10",
+                    "pos": {
+                        "x": 2,
+                        "y": 3
+                    },
+                    "asset": "assets/Villager 10.png",
+                    "state": "stay"
+                },
+                {
+                    "name": "Girl",
+                    "villager": "9",
+                    "pos": {
+                        "x": 9,
+                        "y": 7
+                    },
+                    "defaultDirection": "left",
+                    "asset": "assets/Villager 09.png",
+                    "state": "stay"
+                }
+            ]
+        },
+        "cave": {
+            "tiledMap": "assets/cave.json",
+            "startPos": {
+                "x": 25,
+                "y": 19
+            },
+            "entrance": [
+                {
+                    "x": 25,
+                    "y": 19,
+                    "to": "smallvillage",
+                    "toX": 6,
+                    "toY": 3
+                }
+            ],
+            "villagers": []
+        }
+    },
+    "startMap": "smallvillage",
+    "villagers": {
+        "1": {
+            "asset": "assets/Villager 01.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "2": {
+            "asset": "assets/Villager 02.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "3": {
+            "asset": "assets/Villager 03.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "4": {
+            "asset": "assets/Villager 04.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "5": {
+            "asset": "assets/Villager 05.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "6": {
+            "asset": "assets/Villager 06.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "7": {
+            "asset": "assets/Villager 07.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "8": {
+            "asset": "assets/Villager 08.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "9": {
+            "asset": "assets/Villager 09.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        },
+        "10": {
+            "asset": "assets/Villager 10.png",
+            "idleframe": {
+                "left": {
+                    "start":4,
+                    "end": 7
+                },
+                "down": {
+                    "start":0,
+                    "end": 3
+                },
+                "up": {
+                    "start":12,
+                    "end": 15
+                },
+                "right": {
+                    "start":8,
+                    "end": 11
+                }
+            },
+            "movingframe": {
+                "left": {
+                    "start":20,
+                    "end": 23
+                },
+                "down": {
+                    "start":16,
+                    "end": 19
+                },
+                "up": {
+                    "start":27,
+                    "end": 30
+                },
+                "right": {
+                    "start":24,
+                    "end": 27
+                }
+            }
+        }
+    }
+}
