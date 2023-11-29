@@ -10,8 +10,9 @@ export class Player {
     private tilePos: Phaser.Math.Vector2,
     gameScene: GameScene
   ) {
-    const offsetX = GameScene.TILE_SIZE / 2;
-    const offsetY = GameScene.TILE_SIZE * 0.3;
+    
+    const offsetX = sprite.getBounds().width / 2;
+    const offsetY = sprite.getBounds().height;
 
     this.sprite.setOrigin(0.5, 1);
     this.sprite.setPosition(

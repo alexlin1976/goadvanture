@@ -10,7 +10,7 @@
     "fileStates": {
         "": {
             "scaleInDock": 2.1425,
-            "scaleInEditor": 3.33
+            "scaleInEditor": 2.7
         },
         "Animated Doors.tsx": {
             "scaleInDock": 2.1729,
@@ -56,6 +56,10 @@
             "scaleInDock": 1.3256,
             "scaleInEditor": 3.09
         },
+        "Village Animated Water.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.02
+        },
         "Walls.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 2.2458
@@ -100,11 +104,11 @@
             "scaleInDock": 1
         },
         "smallvillage.json": {
-            "scale": 1.7998,
-            "selectedLayer": 2,
+            "scale": 1.79,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 163.62929214357152,
-                "y": 81.95355039448827
+                "x": 160.05586592178767,
+                "y": 156.7039106145251
             }
         },
         "smallvillage.json#Animated Doors": {
@@ -113,7 +117,7 @@
         },
         "smallvillage.json#Decoration": {
             "scaleInDock": 2.1425,
-            "scaleInEditor": 3.33
+            "scaleInEditor": 3.02
         },
         "smallvillage.json#Doors Windows": {
             "scaleInDock": 1,
@@ -141,6 +145,10 @@
             "scaleInDock": 1,
             "scaleInEditor": 4.3275
         },
+        "smallvillage.json#Water": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.02
+        },
         "startscene.json": {
             "scale": 0.6705,
             "selectedLayer": 1,
@@ -157,8 +165,8 @@
         }
     },
     "frame.defaultDuration": 100,
-    "last.externalTilesetPath": "/Users/alex_lin/myprojects/GoAdvanture/Assets",
-    "last.imagePath": "/Users/alex_lin/myprojects/GoAdvanture/Assets",
+    "last.externalTilesetPath": "/",
+    "last.imagePath": "/Users/alex_lin/privateproject/goadvanture/Assets",
     "map.height": 20,
     "map.lastUsedFormat": "json",
     "map.tileHeight": 16,
@@ -166,13 +174,16 @@
     "map.width": 50,
     "openFiles": [
         "smallvillage.json",
-        "shopinside.json"
+        "shopinside.json",
+        "Village Animated Water.tsx"
     ],
     "project": "GoAdvanture.tiled-project",
-    "property.type": "bool",
+    "property.type": "int",
     "recentFiles": [
+        "Village Animated Water.tsx",
         "shopinside.json",
         "smallvillage.json",
+        "Water.tsx",
         "Smoke.tsx",
         "Animated Doors.tsx",
         "cave.json",
@@ -180,9 +191,7 @@
         "startscene.json",
         "Doors Windows.tsx",
         "Walls.tsx",
-        "Decoration.tsx",
-        "Marketplace.tsx",
-        "Floors.tsx"
+        "Decoration.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

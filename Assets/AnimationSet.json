@@ -9,6 +9,38 @@
             "asset": "decoration",
             "steps": 4,
             "start": 4
+        },
+        "water_ground": {
+            "asset": "water",
+            "frames": [0,3,6],
+            "loop_x": 3,
+            "loop_y": 3,
+            "tilesetwidth": 72,
+            "framerate": 3
+        },
+        "water1": {
+            "asset": "water",
+            "start": 132,
+            "steps": 4,
+            "framerate": 3
+        },
+        "water2": {
+            "asset": "water",
+            "start": 204,
+            "steps": 4,
+            "framerate": 3
+        },
+        "fish1": {
+            "asset": "water",
+            "start": 636,
+            "steps": 4,
+            "framerate": 3
+        },
+        "fish2": {
+            "asset": "water",
+            "start": 708,
+            "steps": 4,
+            "framerate": 3
         }
     },
     "assetsSet": {
@@ -19,6 +51,11 @@
         },
         "decoration": {
             "asset": "assets/Village Animated Decorations.png",
+            "width": 1,
+            "height": 1
+        },
+        "water": {
+            "asset": "assets/Village Animated Water.png",
             "width": 1,
             "height": 1
         }

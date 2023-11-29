@@ -42,19 +42,36 @@ export class AnimationSet {
                     if (tile.properties.hasAnimation) {
                         const definition = this.definitions.animations[tile.properties.animation];
                         const asset = this.definitions.assetsSet[definition.asset];
-                        console.log(`this tile has an animation ${tile.properties.animation} from ${definition.start} to ${definition.start + definition.steps - 1}`)
+                        console.log(`loading animation ${tile.properties.animation} ${tile.properties.group_x} ${tile.properties.group_y}`);
                         const tilePosition = tileMap.tileToWorldXY(tile.x + tile.properties.xOffset * asset.width, tile.y + tile.properties.yOffset * asset.height)!;
-                        const smokeSprite = gameScene.add.sprite(tilePosition.x + 24, tilePosition.y + 24,tile.properties.animation);
-                        smokeSprite.setDepth(5);
-                        smokeSprite.scale = 3;
-                        gameScene.anims.create({
-                          key: tile.properties.animation,
-                          frames: gameScene.anims.generateFrameNumbers(definition.asset, { start: definition.start, end: definition.start + definition.steps - 1 }),
-                          frameRate: 10,
-                          repeat: -1,
-                        });
-                        smokeSprite.anims.play(tile.properties.animation);
-                    
+                        const animationSprite = gameScene.add.sprite(tilePosition.x + 24, tilePosition.y + 24,tile.properties.animation);
+                        animationSprite.setDepth(5);
+                        animationSprite.scale = 3;
+                        const framerate = "framerate" in definition ? definition.framerate : 10;
+                        if ("group_x" in tile.properties && "group_y" in tile.properties) {
+                            let frames: Array<integer> = [];
+                            console.log(`${definition.frames}`)
+                            for (var i=0; i<definition.frames.length; i++) {
+                                frames.push(definition.frames[i] + definition.tilesetwidth * tile.properties.group_y + tile.properties.group_x);
+                            }
+                            console.log(`${tile.properties.group_x},${tile.properties.group_y} frames: ${frames}`)
+                            gameScene.anims.create({
+                                key: `${tile.properties.animation}_${tile.properties.group_x}_${tile.properties.group_y}`,
+                                frames: gameScene.anims.generateFrameNumbers(definition.asset, { frames: frames }),
+                                frameRate: framerate,
+                                repeat: -1,
+                            });
+                            animationSprite.anims.play(`${tile.properties.animation}_${tile.properties.group_x}_${tile.properties.group_y}`);
+                        }
+                        else {
+                            gameScene.anims.create({
+                                key: tile.properties.animation,
+                                frames: gameScene.anims.generateFrameNumbers(definition.asset, { start: definition.start, end: definition.start + definition.steps - 1 }),
+                                frameRate: framerate,
+                                repeat: -1,
+                            });
+                            animationSprite.anims.play(tile.properties.animation);
+                        }
                     }
                 })
             });

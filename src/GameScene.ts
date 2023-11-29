@@ -92,7 +92,7 @@ export class GameScene extends Phaser.Scene {
 
   gamemap!: GameMap
   public preload() {
-    ["Terrain","Floors","Decoration","Doors Windows","Roofs","Walls","Nature","Marketplace"]
+    ["Terrain","Floors","Decoration","Doors Windows","Roofs","Walls","Nature","Marketplace","Water"]
     .forEach(tileset => this.load.image(tileset, `assets/Rural Village ${tileset}.png`) )
 
     this.gamemap = gameScript.gamemap(this.scene.key);
