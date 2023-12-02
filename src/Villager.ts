@@ -59,7 +59,7 @@ class Villager extends Player {
     villagerControl!: VillagerControl
     static create(gameScene: GameScene, tileMap: Phaser.Tilemaps.Tilemap, villager: any): Villager {
         const offsetX = GameScene.TILE_SIZE / 2;
-        const offsetY = GameScene.TILE_SIZE * 0.3;
+        const offsetY = GameScene.TILE_SIZE;
         const sprite = gameScene.add.sprite(villager.pos.x * GameScene.TILE_SIZE + offsetX,
              villager.pos.y * GameScene.TILE_SIZE + offsetY,
              villager.name);

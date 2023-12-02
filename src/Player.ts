@@ -87,6 +87,7 @@ export class Player {
   }
 
   createAnimation(gameScene: GameScene, start: integer, end: integer, direction: string, state: string) {
+    if (gameScene.anims.get(this.animationkey(direction, state))) return;
     gameScene.anims.create({
         key: this.animationkey(direction, state),
         frames: gameScene.anims.generateFrameNumbers(this.key, {

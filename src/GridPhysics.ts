@@ -8,16 +8,33 @@ type Vector2 = Phaser.Math.Vector2;
 export class GridPhysics {
   private movementDirection: Direction = Direction.NONE;
   private lastMovementIntent = Direction.NONE;
-  private tileSizePixelsWalked: number = 0;
   constructor(private player: Player,
      private tileMap: Phaser.Tilemaps.Tilemap, 
      private speedPixelsPerSecond: number = GameScene.TILE_SIZE * 4,
      private geoFence?: Phaser.Geom.Rectangle) {}
 
-  private isBlockingDirection(direction: Direction): boolean {
-    const pos = this.tilePosInDirection(direction);
-    return this.hasBlockingTile(pos) ||
-    this.hasAnotherPlayer(pos);
+  private isBlockingByMoving(direction: Direction, pixelsToMove: number): boolean {
+    const directionVec = this.movementDirectionVectors[
+      direction
+    ]?.clone();
+    const movementDistance = directionVec?.multiply(new Vector2(pixelsToMove));
+    const newPlayerPos = this.player.getPosition().add(movementDistance ?? new Vector2());
+    if (this.hasAnotherPlayer(newPlayerPos)) return true;
+    switch (direction) {
+      case Direction.LEFT: newPlayerPos.x -= GameScene.TILE_SIZE / 2; break;
+      case Direction.RIGHT: newPlayerPos.x += GameScene.TILE_SIZE / 2; break;
+      case Direction.DOWN: break;
+      case Direction.UP: newPlayerPos.y -= GameScene.TILE_SIZE / 3 * 1;break;
+    }
+    if (newPlayerPos.x < 0 || newPlayerPos.y < 0 || 
+      newPlayerPos.x >= this.tileMap.widthInPixels * 3 || newPlayerPos.y >= this.tileMap.heightInPixels * 3)
+      return true;
+    
+    return this.tileMap.layers.some((layer) => {
+      const tile = layer.tilemapLayer.getTileAtWorldXY(newPlayerPos.x, newPlayerPos.y);
+      if (tile)
+      return tile && tile.properties.collides;
+    });
   }
 
   private isCrossingFence(direction: Direction): boolean {
@@ -36,24 +53,11 @@ export class GridPhysics {
       .add(this.movementDirectionVectors[direction] ?? new Vector2());
   }
 
-  private hasBlockingTile(pos: Vector2): boolean {
-    if (this.hasNoTile(pos)) return true;
-    return this.tileMap.layers.some((layer) => {
-      const tile = this.tileMap.getTileAt(pos.x, pos.y, false, layer.name);
-      return tile && tile.properties.collides;
-    });
-  }
-
   private hasAnotherPlayer(pos: Vector2): boolean {
-    return this.currentPlayers.some(player => player.getTilePos().x == pos.x && player.getTilePos().y == pos.y);
+    const playerRect = new Phaser.Geom.Rectangle(pos.x - GameScene.TILE_SIZE / 2, pos.y - GameScene.TILE_SIZE / 3, GameScene.TILE_SIZE, GameScene.TILE_SIZE / 3.0);
+    return this.currentPlayers.some(player => player !== this.player && Phaser.Geom.Rectangle.Overlaps(playerRect, player.getSprite().getBounds()));
   }
   
-  private hasNoTile(pos: Vector2): boolean {
-    return !this.tileMap.layers.some((layer) =>
-      this.tileMap.hasTileAt(pos.x, pos.y, layer.name)
-    );
-  }
- 
   private movementDirectionVectors: {
     [key in Direction]?: Vector2;
   } = {
@@ -66,12 +70,10 @@ export class GridPhysics {
   movePlayer(direction: Direction): void {
     this.player.setFaceDirection(direction);
     this.lastMovementIntent = direction;
-    if (this.isMoving()) return;
-    if (this.isBlockingDirection(direction) || this.isCrossingFence(direction)) {
-      this.player.stopAnimation(direction);
-    } else {
-      this.startMoving(direction);
+    if (this.isMoving()) {
+      return;
     }
+      this.startMoving(direction);
   }
 
   private isMoving(): boolean {
@@ -101,31 +103,26 @@ export class GridPhysics {
   private updatePlayerPosition(delta: number) {
     const pixelsToWalkThisUpdate = this.getPixelsToWalkThisUpdate(delta);
 
-    if (!this.willCrossTileBorderThisUpdate(pixelsToWalkThisUpdate)) {
-      this.movePlayerSprite(pixelsToWalkThisUpdate);
-    } else if (this.shouldContinueMoving()) {
+    if (this.shouldContinueMoving(pixelsToWalkThisUpdate)) {
       this.movePlayerSprite(pixelsToWalkThisUpdate);
       this.updatePlayerTilePos();
-    } else {
-      this.movePlayerSprite(GameScene.TILE_SIZE - this.tileSizePixelsWalked);
+    }
+    else {
       this.stopMoving();
     }
   }
 
   private updatePlayerTilePos() {
     this.player.setTilePos(
-      this.player
-        .getTilePos()
-        .add(this.movementDirectionVectors[this.movementDirection] ?? new Vector2())
-    );
+      new Phaser.Math.Vector2(
+        Math.floor((this.player.getPosition().x) / GameScene.TILE_SIZE), 
+        Math.floor((this.player.getPosition().y) / GameScene.TILE_SIZE)));
   }
 
-  private shouldContinueMoving(): boolean {
+  private shouldContinueMoving(pixelsToMove: number): boolean {
     return (
       this.movementDirection == this.lastMovementIntent &&
-      !(this.isBlockingDirection(this.lastMovementIntent) ||
-      this.isCrossingFence(this.lastMovementIntent))
-    );
+      !this.isBlockingByMoving(this.lastMovementIntent, pixelsToMove));
   }
 
   private movePlayerSprite(pixelsToMove: number) {
@@ -135,16 +132,6 @@ export class GridPhysics {
     const movementDistance = directionVec?.multiply(new Vector2(pixelsToMove));
     const newPlayerPos = this.player.getPosition().add(movementDistance ?? new Vector2());
     this.player.setPosition(newPlayerPos);
-    this.tileSizePixelsWalked += pixelsToMove;
-    this.tileSizePixelsWalked %= GameScene.TILE_SIZE;
-  }
-
-  private willCrossTileBorderThisUpdate(
-    pixelsToWalkThisUpdate: number
-  ): boolean {
-    return (
-      this.tileSizePixelsWalked + pixelsToWalkThisUpdate >= GameScene.TILE_SIZE
-    );
   }
 
  private getPixelsToWalkThisUpdate(delta: number): number {

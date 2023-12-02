@@ -42,6 +42,9 @@ export class GameScene extends Phaser.Scene {
         layer.scale = 3;
       }
     }
+
+    this.villagers = this.gamemap.createVillagers(this, map);
+
     const playerSprite = this.add.sprite(0, 0, "player");
     playerSprite.setDepth(3);
     playerSprite.scale = 3;
@@ -74,8 +77,6 @@ export class GameScene extends Phaser.Scene {
     );
 
     animationSet.createTileMapAnimation(map, this);
-
-    this.villagers = this.gamemap.createVillagers(this, map);
     this.aKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
   }
 

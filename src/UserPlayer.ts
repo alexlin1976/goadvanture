@@ -13,6 +13,7 @@ export class UserPlayer extends Player {
     private gamemap: GameMap,
     private newMap: (newMap: any) => void,
   ) {
+    console.log(`start pos = (${tilePos.x}, ${tilePos.y})`)
     super("player",sprite,tilePos,gamescene);
     this.createAnimation(gamescene, 0, 5, Direction.UP, "moving");
     this.createAnimation(gamescene, 18, 23, Direction.RIGHT, "moving");
@@ -21,6 +22,7 @@ export class UserPlayer extends Player {
   }
   setTilePos(tilePosition: Phaser.Math.Vector2): void {
     super.setTilePos(tilePosition);
+    console.log(`player current pos = ${tilePosition.x}, ${tilePosition.y}`)
     const nextMap = this.gamemap.checkEntrance(this.getTilePos());
     if (nextMap != null) {
       this.newMap(nextMap);

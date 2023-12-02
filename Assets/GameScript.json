@@ -12,14 +12,14 @@
                     "y": 12,
                     "to": "shopinside",
                     "toX": 3,
-                    "toY": 9
+                    "toY": 7
                 },
                 {
                     "x": 6,
                     "y": 2,
                     "to": "cave",
                     "toX": 25,
-                    "toY": 19
+                    "toY": 17
                 }
             ],
             "villagers": [
@@ -65,7 +65,7 @@
             "tiledMap": "assets/shopinside.json",
             "startPos": {
                 "x": 3,
-                "y": 9
+                "y": 8
             },
             "entrance": [
                 {
@@ -104,7 +104,7 @@
             "tiledMap": "assets/cave.json",
             "startPos": {
                 "x": 25,
-                "y": 19
+                "y": 18
             },
             "entrance": [
                 {
