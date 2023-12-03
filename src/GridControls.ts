@@ -10,6 +10,8 @@ export class GridControls {
   ) {}
 
   update() {
+    const space = this.input.keyboard?.addKey("SPACE");
+    this.gridPhysics.setAttacking(space?.isDown ?? false);
     const cursors = this.input.keyboard?.createCursorKeys();
     if (cursors?.left.isDown) {
       this.gridPhysics.movePlayer(Direction.LEFT);

@@ -55,14 +55,23 @@ export class Player {
   stopAnimation(direction: Direction) {
     this.currentDirection = undefined;
     const animationManager = this.sprite.anims.animationManager;
+    this.sprite.setTexture(this.key);
+    if (direction == Direction.NONE) return;
     const standingFrame = animationManager.get(this.animationkey(direction, "moving")).frames[1].frame.name;
     this.sprite.anims.stop();
     this.sprite.setFrame(standingFrame);
   }
 
-  startAnimation(direction: Direction) {
+  startAnimation(direction: Direction, isAttacking: boolean = false) {
     this.currentDirection = direction;
-    this.sprite.anims.play(this.animationkey(direction, "moving"));
+    if (isAttacking) {
+      this.sprite.setTexture(`${this.key}-attack`);
+      this.sprite.anims.play(this.animationkey(direction, "attacking"));
+    }
+    else {
+      this.sprite.setTexture(this.key);
+      this.sprite.anims.play(this.animationkey(direction, "moving"));
+    }
   }
 
   getDirection(): Direction | undefined {
@@ -81,11 +90,12 @@ export class Player {
     return `${this.key}_${state}_${direction}`;
   }
 
-  createAnimation(gameScene: GameScene, start: integer, end: integer, direction: string, state: string) {
+  createAnimation(gameScene: GameScene, start: integer, end: integer, direction: string, state: string, textureKey?: string) {
     if (gameScene.anims.get(this.animationkey(direction, state))) return;
     gameScene.anims.create({
         key: this.animationkey(direction, state),
-        frames: gameScene.anims.generateFrameNumbers(this.key, {
+        frames: gameScene.anims.generateFrameNumbers(
+          textureKey ? textureKey : this.key, {
             start: start,
             end: end
         }),

@@ -45,7 +45,7 @@ export class GameScene extends Phaser.Scene {
 
     this.villagers = this.gamemap.createVillagers(this, map);
 
-    const playerSprite = this.add.sprite(0, 0, "player");
+    const playerSprite = this.add.sprite(0, 0, "player-attack");
     playerSprite.setDepth(3);
     playerSprite.scale = 3;
 
@@ -102,7 +102,7 @@ export class GameScene extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
-    this.load.spritesheet("player-attach", "assets/Odderf-Attack-Sheet.png", {
+    this.load.spritesheet("player-attack", "assets/Odderf-Attack-Sheet.png", {
       frameWidth: 48,
       frameHeight: 48,
     });

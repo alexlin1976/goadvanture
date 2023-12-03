@@ -80,8 +80,17 @@ export class GridPhysics {
     return this.movementDirection != Direction.NONE;
   }
 
+  private attacking: boolean = false;
+  setAttacking(attacking: boolean) {
+    if (this.attacking == attacking) return;
+    this.attacking = attacking;
+    this.stopMoving();
+  }
+  isAttacking(): boolean {
+    return this.attacking;
+  }
   private startMoving(direction: Direction): void {
-    this.player.startAnimation(direction);
+    this.player.startAnimation(direction, this.attacking);
     this.movementDirection = direction;
     this.updatePlayerTilePos();
   }

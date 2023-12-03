@@ -13,16 +13,21 @@ export class UserPlayer extends Player {
     private gamemap: GameMap,
     private newMap: (newMap: any) => void,
   ) {
-    console.log(`start pos = (${tilePos.x}, ${tilePos.y})`)
+    // console.log(`start pos = (${tilePos.x}, ${tilePos.y})`)
     super("player",sprite,tilePos,gamescene);
     this.createAnimation(gamescene, 0, 5, Direction.UP, "moving");
     this.createAnimation(gamescene, 18, 23, Direction.RIGHT, "moving");
     this.createAnimation(gamescene, 6, 11, Direction.DOWN, "moving");
     this.createAnimation(gamescene, 12, 17, Direction.LEFT, "moving");
+
+    this.createAnimation(gamescene, 2, 6, Direction.UP, "attacking", "player-attack");
+    this.createAnimation(gamescene, 28, 31, Direction.RIGHT, "attacking", "player-attack");
+    this.createAnimation(gamescene, 11, 14, Direction.DOWN, "attacking", "player-attack");
+    this.createAnimation(gamescene, 20, 24, Direction.LEFT, "attacking", "player-attack");
   }
   setTilePos(tilePosition: Phaser.Math.Vector2): void {
     super.setTilePos(tilePosition);
-    console.log(`player current pos = ${tilePosition.x}, ${tilePosition.y}`)
+    // console.log(`player current pos = ${tilePosition.x}, ${tilePosition.y}`)
     const nextMap = this.gamemap.checkEntrance(this.getTilePos());
     if (nextMap != null) {
       this.newMap(nextMap);
