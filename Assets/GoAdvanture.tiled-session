@@ -3,14 +3,14 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Odderf-Attack-Sheet.tsx",
+    "activeFile": "cave.json",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "": {
-            "scaleInDock": 2.1425,
-            "scaleInEditor": 2.7
+            "scaleInDock": 1,
+            "scaleInEditor": 3.02
         },
         "Animated Doors.tsx": {
             "scaleInDock": 2.1729,
@@ -38,7 +38,7 @@
         },
         "Nature.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 3.0999
         },
         "Odderf-Attack-Sheet.tsx": {
             "scaleInDock": 1,
@@ -73,15 +73,22 @@
             "scaleInEditor": 1.7805
         },
         "cave.json": {
-            "scale": 1.62,
-            "selectedLayer": 0,
+            "scale": 0.9177,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 302.7777777777777,
-                "y": 138.58024691358025
+                "x": 448.4036177400021,
+                "y": 287.1308706548981
             }
         },
+        "cave.json#Decoration": {
+            "scaleInDock": 2.258
+        },
+        "cave.json#Floors": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.28
+        },
         "cave.json#Terrain": {
-            "scaleInDock": 1
+            "scaleInDock": 1.8592
         },
         "characters.tsx": {
             "scaleInDock": 1,
@@ -109,10 +116,10 @@
         },
         "smallvillage.json": {
             "scale": 1.79,
-            "selectedLayer": 0,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 160.05586592178767,
-                "y": 156.7039106145251
+                "x": 291.340782122905,
+                "y": 149.4413407821229
             }
         },
         "smallvillage.json#Animated Doors": {
@@ -178,25 +185,26 @@
     "map.width": 50,
     "openFiles": [
         "smallvillage.json",
-        "shopinside.json",
-        "Village Animated Water.tsx",
-        "Odderf-Attack-Sheet.tsx"
+        "cave.json",
+        "Nature.tsx",
+        "Terrain.tsx",
+        "Floors.tsx"
     ],
     "project": "GoAdvanture.tiled-project",
-    "property.type": "int",
+    "property.type": "bool",
     "recentFiles": [
-        "Odderf-Attack-Sheet.tsx",
+        "cave.json",
+        "Decoration.tsx",
         "smallvillage.json",
+        "Floors.tsx",
+        "Terrain.tsx",
+        "Nature.tsx",
         "shopinside.json",
         "Village Animated Water.tsx",
+        "Odderf-Attack-Sheet.tsx",
         "Water.tsx",
         "Smoke.tsx",
-        "Animated Doors.tsx",
-        "cave.json",
-        "Terrain.tsx",
-        "startscene.json",
-        "Doors Windows.tsx",
-        "Walls.tsx"
+        "Animated Doors.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

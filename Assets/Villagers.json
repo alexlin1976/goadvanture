@@ -1,0 +1,392 @@
+{
+    "1": {
+        "asset": "assets/Villager/Villager 01.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "2": {
+        "asset": "assets/Villager/Villager 02.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "3": {
+        "asset": "assets/Villager/Villager 03.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "4": {
+        "asset": "assets/Villager/Villager 04.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "5": {
+        "asset": "assets/Villager/Villager 05.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "6": {
+        "asset": "assets/Villager/Villager 06.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "7": {
+        "asset": "assets/Villager/Villager 07.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "8": {
+        "asset": "assets/Villager/Villager 08.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "9": {
+        "asset": "assets/Villager/Villager 09.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    },
+    "10": {
+        "asset": "assets/Villager/Villager 10.png",
+        "idleframe": {
+            "left": {
+                "start":4,
+                "end": 7
+            },
+            "down": {
+                "start":0,
+                "end": 3
+            },
+            "up": {
+                "start":12,
+                "end": 15
+            },
+            "right": {
+                "start":8,
+                "end": 11
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":20,
+                "end": 23
+            },
+            "down": {
+                "start":16,
+                "end": 19
+            },
+            "up": {
+                "start":27,
+                "end": 30
+            },
+            "right": {
+                "start":24,
+                "end": 27
+            }
+        }
+    }
+}
