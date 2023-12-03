@@ -23,8 +23,8 @@ export class GridPhysics {
     switch (direction) {
       case Direction.LEFT: newPlayerPos.x -= GameScene.TILE_SIZE / 2; break;
       case Direction.RIGHT: newPlayerPos.x += GameScene.TILE_SIZE / 2; break;
-      case Direction.DOWN: break;
-      case Direction.UP: newPlayerPos.y -= GameScene.TILE_SIZE / 3 * 1;break;
+      case Direction.DOWN: newPlayerPos.y += GameScene.TILE_SIZE / 2; break;
+      case Direction.UP: newPlayerPos.y -= GameScene.TILE_SIZE / 2 - GameScene.TILE_SIZE / 3 * 1.5;break;
     }
     if (newPlayerPos.x < 0 || newPlayerPos.y < 0 || 
       newPlayerPos.x >= this.tileMap.widthInPixels * 3 || newPlayerPos.y >= this.tileMap.heightInPixels * 3)
@@ -54,7 +54,7 @@ export class GridPhysics {
   }
 
   private hasAnotherPlayer(pos: Vector2): boolean {
-    const playerRect = new Phaser.Geom.Rectangle(pos.x - GameScene.TILE_SIZE / 2, pos.y - GameScene.TILE_SIZE / 3, GameScene.TILE_SIZE, GameScene.TILE_SIZE / 3.0);
+    const playerRect = new Phaser.Geom.Rectangle(pos.x - GameScene.TILE_SIZE / 2, pos.y - GameScene.TILE_SIZE / 2, GameScene.TILE_SIZE, GameScene.TILE_SIZE);
     return this.currentPlayers.some(player => player !== this.player && Phaser.Geom.Rectangle.Overlaps(playerRect, player.getSprite().getBounds()));
   }
   

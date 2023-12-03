@@ -10,14 +10,9 @@ export class Player {
     private tilePos: Phaser.Math.Vector2,
     gameScene: GameScene
   ) {
-    
-    const offsetX = sprite.getBounds().width / 2;
-    const offsetY = sprite.getBounds().height;
-
-    this.sprite.setOrigin(0.5, 1);
     this.sprite.setPosition(
-      tilePos.x * GameScene.TILE_SIZE + offsetX,
-      tilePos.y * GameScene.TILE_SIZE + offsetY
+      tilePos.x * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2,
+      tilePos.y * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2
     );
 
     var graphics = gameScene.add.graphics();
@@ -47,7 +42,7 @@ export class Player {
   }
 
   getPosition(): Phaser.Math.Vector2 {
-    return this.sprite.getBottomCenter();
+    return this.sprite.getCenter();
   }
 
   setPosition(position: Phaser.Math.Vector2): void {

@@ -92,7 +92,7 @@
             "selectedLayer": 4,
             "viewCenter": {
                 "x": 80.0380228136882,
-                "y": 80.03802281368823
+                "y": 80.79847908745248
             }
         },
         "shopinside.json#Decoration": {
@@ -111,8 +111,8 @@
             "scale": 1.79,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 172.3463687150838,
-                "y": 162.84916201117318
+                "x": 160.05586592178767,
+                "y": 156.7039106145251
             }
         },
         "smallvillage.json#Animated Doors": {

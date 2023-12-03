@@ -102,6 +102,10 @@ export class GameScene extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
+    this.load.spritesheet("player-attach", "assets/Odderf-Attack-Sheet.png", {
+      frameWidth: 48,
+      frameHeight: 48,
+    });
     this.load.spritesheet('animatedDoor', 'assets/Village Animated Doors.png', {
       frameWidth: 16,
       frameHeight: 16,
