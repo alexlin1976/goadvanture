@@ -28,7 +28,7 @@ class GameMap {
     loadVillagersSheets(gameScene: GameScene) {
         for (const villager of this.mapObj.villagers) {
             const asset = gameScript.villager(villager.villager);
-            console.log(`load villager sheet key: ${villager.name} asset:${asset.asset}`)
+            // console.log(`load villager sheet key: ${villager.name} asset:${asset.asset}`)
             gameScene.load.spritesheet(villager.name, asset.asset, {
                 frameWidth: 16,
                 frameHeight: 16,

@@ -30,7 +30,7 @@ export class DoorControls {
         const tilePosition = this.tileMap.tileToWorldXY(tile.x, tile.y)!;
         this.animatedTileSprite = this.gameScene.add.sprite(tilePosition.x + 24, tilePosition.y + 24, tile.properties.animation);
         this.animatedTileSprite.scale = 3;
-        console.log(`open door @ tile ${pos.x},${pos.y}`)
+        // console.log(`open door @ tile ${pos.x},${pos.y}`)
         this.gameScene.anims.create({
             key: 'spriteAnimation',
             frames: this.gameScene.anims.generateFrameNumbers(tile.properties.animation, { start: tile.properties.start, end: tile.properties.end }),
@@ -71,7 +71,7 @@ export class DoorControls {
   movePlayer(direction: Direction): void {
     this.lastMovementIntent = direction;
     if (this.isClosedDoorTileInDirection(direction)) {
-        console.log("Encountered closed door")
+        // console.log("Encountered closed door")
     }
   }
 

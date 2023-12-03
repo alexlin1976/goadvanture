@@ -5,8 +5,23 @@ import { Player } from "./Player";
 import Villager from "./Villager";
 
 export class UserPlayer extends Player {
+  static preload(gamescene: GameScene) {
+    gamescene.load.spritesheet("player", "assets/Odderf-Walk-Sheet.png", {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    gamescene.load.spritesheet("player-attack", "assets/Odderf-Attack-Sheet.png", {
+      frameWidth: 48,
+      frameHeight: 48,
+    });
+    gamescene.load.spritesheet("player-sword", "assets/Odderf-Sword-Sheet.png", {
+      frameWidth: 48,
+      frameHeight: 48,
+    });
+  }
+
+  swordSprite!: Phaser.GameObjects.Sprite;
   constructor(
-    sprite: Phaser.GameObjects.Sprite,
     private tileMap: Phaser.Tilemaps.Tilemap, 
     tilePos: Phaser.Math.Vector2,
     gamescene: GameScene,
@@ -14,7 +29,21 @@ export class UserPlayer extends Player {
     private newMap: (newMap: any) => void,
   ) {
     // console.log(`start pos = (${tilePos.x}, ${tilePos.y})`)
-    super("player",sprite,tilePos,gamescene);
+    const playerSprite = gamescene.add.sprite(0, 0, "player");
+    playerSprite.setDepth(3);
+    playerSprite.scale = 3;
+
+    gamescene.cameras.main.startFollow(playerSprite);
+    gamescene.cameras.main.roundPixels = true;
+
+    super("player",playerSprite,tilePos,gamescene);
+
+    const swordSprite = gamescene.add.sprite(0, 0, "player-sword");
+    swordSprite.setDepth(3.5);
+    swordSprite.scale = 3;
+    this.swordSprite = swordSprite;
+    swordSprite.visible = false;
+
     this.createAnimation(gamescene, 0, 5, Direction.UP, "moving");
     this.createAnimation(gamescene, 18, 23, Direction.RIGHT, "moving");
     this.createAnimation(gamescene, 6, 11, Direction.DOWN, "moving");
@@ -24,7 +53,13 @@ export class UserPlayer extends Player {
     this.createAnimation(gamescene, 28, 31, Direction.RIGHT, "attacking", "player-attack");
     this.createAnimation(gamescene, 11, 14, Direction.DOWN, "attacking", "player-attack");
     this.createAnimation(gamescene, 20, 24, Direction.LEFT, "attacking", "player-attack");
+
+    this.createAnimation(gamescene, 2, 6, Direction.UP, "sword", "player-sword");
+    this.createAnimation(gamescene, 28, 31, Direction.RIGHT, "sword", "player-sword");
+    this.createAnimation(gamescene, 11, 14, Direction.DOWN, "sword", "player-sword");
+    this.createAnimation(gamescene, 20, 24, Direction.LEFT, "sword", "player-sword");
   }
+
   setTilePos(tilePosition: Phaser.Math.Vector2): void {
     super.setTilePos(tilePosition);
     // console.log(`player current pos = ${tilePosition.x}, ${tilePosition.y}`)
@@ -88,4 +123,23 @@ export class UserPlayer extends Player {
       this.hideBubbleText();
     }
   }
+
+  startAnimation(direction: Direction, isAttacking?: boolean): void {
+    super.startAnimation(direction, isAttacking);
+    if (isAttacking) {
+      this.swordSprite.visible = true;
+      this.swordSprite.anims.play(this.animationkey(direction, "sword"));
+    }
+  }
+
+  stopAnimation(direction: Direction): void {
+    this.swordSprite.visible = false;
+    super.stopAnimation(direction);
+  }
+
+  setPosition(position: Phaser.Math.Vector2): void {
+    super.setPosition(position);
+    this.swordSprite.setPosition(position.x, position.y);
+  }
+
 }

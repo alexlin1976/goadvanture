@@ -45,27 +45,13 @@ export class GameScene extends Phaser.Scene {
 
     this.villagers = this.gamemap.createVillagers(this, map);
 
-    const playerSprite = this.add.sprite(0, 0, "player-attack");
-    playerSprite.setDepth(3);
-    playerSprite.scale = 3;
-
-    this.cameras.main.startFollow(playerSprite);
-    this.cameras.main.roundPixels = true;
     const startPos = GameScene.startPos != null ? GameScene.startPos : this.gamemap.startPos();
-    const player = new UserPlayer(playerSprite, 
+    const player = new UserPlayer(
       map,
       startPos, 
       this,
       this.gamemap, 
-      (newMap) => {
-        console.log(`goto new map ${newMap}`)
-        const key: string = newMap.to;
-        GameScene.createKey = key;
-        GameScene.startPos = new Phaser.Math.Vector2(newMap.toX, newMap.toY);
-        this.game.scene.add(key, GameScene);
-        this.scene.start(key, { remove: true });
-        this.game.scene.remove(this.scene.key);
-      });
+      (newMap) => {this.newMap(newMap);});
     this.player = player;
 
     this.gridPhysics = new GridPhysics(player, map);
@@ -81,6 +67,16 @@ export class GameScene extends Phaser.Scene {
   }
 
   private aKey!: Phaser.Input.Keyboard.Key;
+
+  private newMap(newMap: any) {
+      // console.log(`goto new map ${newMap}`)
+      const key: string = newMap.to;
+      GameScene.createKey = key;
+      GameScene.startPos = new Phaser.Math.Vector2(newMap.toX, newMap.toY);
+      this.game.scene.add(key, GameScene);
+      this.scene.start(key, { remove: true });
+      this.game.scene.remove(this.scene.key);
+  }
   
   public update(_time: number, delta: number) {
     const players = [...this.villagers, this.player];
@@ -98,18 +94,11 @@ export class GameScene extends Phaser.Scene {
 
     this.gamemap = gameScript.gamemap(this.scene.key);
     this.load.tilemapTiledJSON(this.scene.key, this.gamemap.asset());
-    this.load.spritesheet("player", "assets/Odderf-Walk-Sheet.png", {
-      frameWidth: 16,
-      frameHeight: 16,
-    });
-    this.load.spritesheet("player-attack", "assets/Odderf-Attack-Sheet.png", {
-      frameWidth: 48,
-      frameHeight: 48,
-    });
     this.load.spritesheet('animatedDoor', 'assets/Village Animated Doors.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
+    UserPlayer.preload(this);
 
     this.gamemap.loadVillagersSheets(this);
 
