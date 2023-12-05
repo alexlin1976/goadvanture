@@ -5,6 +5,7 @@ import GameMap from "./GameMap";
 class GameScriptLoader {
   script: any;
   villagers: any;
+  enemies: any;
   constructor() {
   }
 
@@ -27,6 +28,7 @@ class GameScriptLoader {
     console.log('Game script loaded:', this.script);
     this.villagers = await this.loadJson('assets/Villagers.json');
     console.log('Villagers loaded:', this.script);
+    this.enemies = await this.loadJson('assets/Enemies.json')
   }
 
   startScene() {
@@ -39,6 +41,10 @@ class GameScriptLoader {
 
   villager(key: string): any {
     return this.villagers[key];
+  }
+
+  enemy(key: string): any {
+    return this.enemies[key];
   }
 }
   

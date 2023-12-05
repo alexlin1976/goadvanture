@@ -8,6 +8,7 @@ import GameMap from "./GameMap";
 import Villager from "./Villager";
 import { AnimationSet, animationSet } from "./AnimationSet";
 import { Player } from "./Player";
+import Enemy from "./Enemy";
 
 export class GameScene extends Phaser.Scene {
   static readonly TILE_SIZE = 48;
@@ -28,6 +29,7 @@ export class GameScene extends Phaser.Scene {
   private gridPhysics!: GridPhysics;
   private doorControls!: DoorControls;
   private villagers!: [Villager];
+  private villains!: Enemy[];
 
   public create() {
     const map = this.make.tilemap({ key: this.scene.key });
@@ -44,6 +46,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     this.villagers = this.gamemap.createVillagers(this, map);
+    this.villains = this.gamemap.createEnemies(this, map);
 
     const startPos = GameScene.startPos != null ? GameScene.startPos : this.gamemap.startPos();
     const player = new UserPlayer(
@@ -84,6 +87,7 @@ export class GameScene extends Phaser.Scene {
     this.gridPhysics.update(delta, players);
     this.doorControls.update();
     this.villagers.forEach(villager => villager.update(_time, delta, players));
+    this.villains.forEach(villain => villain.update(_time, delta, players));
     this.player.update(this.villagers, this.aKey.isDown);
   }
 
@@ -101,6 +105,7 @@ export class GameScene extends Phaser.Scene {
     UserPlayer.preload(this);
 
     this.gamemap.loadVillagersSheets(this);
+    this.gamemap.loadEnemiesSheets(this);
 
     animationSet.loadSettings();
     animationSet.preload(this);

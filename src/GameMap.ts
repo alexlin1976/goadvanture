@@ -1,6 +1,7 @@
 import { GameScene } from "./GameScene";
 import { gameScript } from "./GameScriptLoader";
 import Villager from "./Villager";
+import Enemy from "./Enemy";
 
 class GameMap {
     constructor(
@@ -26,6 +27,7 @@ class GameMap {
     }
 
     loadVillagersSheets(gameScene: GameScene) {
+        // if (!this.mapObj.villager) return;
         for (const villager of this.mapObj.villagers) {
             const asset = gameScript.villager(villager.villager);
             // console.log(`load villager sheet key: ${villager.name} asset:${asset.asset}`)
@@ -36,9 +38,68 @@ class GameMap {
         }
     }
 
+    loadEnemiesSheets(gameScene: GameScene) {
+        if (!this.mapObj.enemies) return;
+        for (const enemy of this.mapObj.enemies) {
+            const asset = gameScript.enemy(enemy.enemy);
+            console.log(`load villain sheet key: ${enemy.name} asset:${asset.asset}`)
+            gameScene.load.spritesheet(`enemy_${enemy.enemy}`, asset.asset, {
+                frameWidth: 16,
+                frameHeight: 16,
+              });
+        }
+    }
+
     createVillagers(gameScene: GameScene, tileMap: Phaser.Tilemaps.Tilemap): [Villager] {
         return this.mapObj.villagers.map( (villager: any) => Villager.create(gameScene, tileMap, villager));
     }
+
+    createEnemies(gameScene: GameScene, tilemap: Phaser.Tilemaps.Tilemap): Enemy[] {
+        if (!this.mapObj.enemies) return[];
+        console.log("create enemies");
+        const collideTiles: boolean[][] = [];
+        for (let i = 0; i < tilemap.height; i++) {
+          const row = [];
+          for (let j = 0; j < tilemap.width; j++) {
+            row.push(false);
+          }
+          collideTiles.push(row);
+        }
+
+        tilemap.layers.forEach(layer => {
+            layer.data.forEach(row => {
+                row.forEach(tile => {
+                    if (tile.properties.collides) {
+                        collideTiles[tile.y][tile.x] = true;
+                    }
+                })
+            })
+        });
+
+        const availableTiles: Phaser.Math.Vector2[] = [];
+        for (let i = 0; i < tilemap.height; i++) {
+            const row = [];
+            for (let j = 0; j < tilemap.width; j++) {
+              if (!collideTiles[i][j])
+                // console.log(`available tile @ (${j},${i})`)
+                availableTiles.push(new Phaser.Math.Vector2(j,i));
+            }
+        }
+        console.log(`number of availableTiles is ${availableTiles.length}`);
+
+        const enemies: Enemy[] = [];
+        for (const villain of this.mapObj.enemies) {
+            if (villain.count) {
+                for (let i=0; i<villain.count; i++) {
+                    const randomIndex = Math.floor(Math.random() * availableTiles.length);
+                    const pos = availableTiles.splice(randomIndex, 1)[0];
+                    enemies.push(Enemy.create(gameScene, i, pos, tilemap, villain));
+                }
+            }
+        }
+
+        return enemies;
+    }         
 }
 
 export default GameMap;

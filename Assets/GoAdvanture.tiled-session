@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "cave.json",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -73,15 +73,16 @@
             "scaleInEditor": 1.7805
         },
         "cave.json": {
-            "scale": 0.9177,
-            "selectedLayer": 1,
+            "scale": 2.14,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 448.4036177400021,
-                "y": 287.1308706548981
+                "x": 190.88785046728972,
+                "y": 253.03738317757006
             }
         },
         "cave.json#Decoration": {
-            "scaleInDock": 2.258
+            "scaleInDock": 2.258,
+            "scaleInEditor": 1
         },
         "cave.json#Floors": {
             "scaleInDock": 1,
@@ -118,8 +119,8 @@
             "scale": 1.79,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 291.340782122905,
-                "y": 149.4413407821229
+                "x": 160.05586592178767,
+                "y": 160.0558659217877
             }
         },
         "smallvillage.json#Animated Doors": {
@@ -184,18 +185,15 @@
     "map.tileWidth": 16,
     "map.width": 50,
     "openFiles": [
-        "smallvillage.json",
         "cave.json",
-        "Nature.tsx",
-        "Terrain.tsx",
-        "Floors.tsx"
+        "smallvillage.json"
     ],
     "project": "GoAdvanture.tiled-project",
     "property.type": "bool",
     "recentFiles": [
         "cave.json",
-        "Decoration.tsx",
         "smallvillage.json",
+        "Decoration.tsx",
         "Floors.tsx",
         "Terrain.tsx",
         "Nature.tsx",

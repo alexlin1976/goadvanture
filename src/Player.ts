@@ -55,7 +55,7 @@ export class Player {
   stopAnimation(direction: Direction) {
     this.currentDirection = undefined;
     const animationManager = this.sprite.anims.animationManager;
-    this.sprite.setTexture(this.key);
+    // this.sprite.setTexture(this.key);
     if (direction == Direction.NONE) return;
     const standingFrame = animationManager.get(this.animationkey(direction, "moving")).frames[1].frame.name;
     this.sprite.anims.stop();

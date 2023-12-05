@@ -115,7 +115,14 @@
                     "toY": 3
                 }
             ],
-            "villagers": []
+            "villagers": [],
+            "enemies": [
+                {
+                    "enemy": 3,
+                    "count": 10,
+                    "state": "movingaround"
+                }
+            ]
         }
     },
     "startMap": "smallvillage"

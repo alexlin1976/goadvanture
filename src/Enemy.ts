@@ -4,32 +4,33 @@ import { GameScene } from "./GameScene";
 import { gameScript } from "./GameScriptLoader";
 import { GridPhysics } from "./GridPhysics";
 import { Player } from "./Player";
-import { VillagerControl } from "./VillagerControl";
+import { EnemyControl } from "./EnemyControl";
 
-export enum VillagerState {
+export enum EnemyState {
     IDLE = "idle",
     WALKING = "walking",
 }
 
-class Villager extends Player {
-    private state: VillagerState;
+class Enemy extends Player {
+    private state: EnemyState;
     constructor(
         sprite: Phaser.GameObjects.Sprite,
         tilePos: Phaser.Math.Vector2,
         gamescene: GameScene,
         tileMap: Phaser.Tilemaps.Tilemap,
-        private villager: any,
+        private enemy: any,
+        private index: integer
     ) {
-        super(villager.name, sprite,tilePos,gamescene);
-        this.state = villager.state == "stay" ? VillagerState.IDLE : VillagerState.WALKING;
-        const movingframe = gameScript.villager(this.villager.villager).movingframe;
+        super(enemy.name ?? `enemy_${enemy.enemy}_${index}`, sprite,tilePos,gamescene);
+        this.state = enemy.state == "stay" ? EnemyState.IDLE : EnemyState.WALKING;
+        const movingframe = gameScript.enemy(this.enemy.enemy).movingframe;
         if (movingframe) {
             this.createAnimationByFrame(gamescene, movingframe.left, Direction.LEFT, "moving");
             this.createAnimationByFrame(gamescene, movingframe.right, Direction.RIGHT, "moving");
             this.createAnimationByFrame(gamescene, movingframe.up, Direction.UP, "moving");
             this.createAnimationByFrame(gamescene, movingframe.down, Direction.DOWN, "moving");
         }
-        const idleframe = gameScript.villager(this.villager.villager).idleframe;
+        const idleframe = gameScript.enemy(this.enemy.enemy).idleframe;
         if (idleframe) {
             this.createAnimationByFrame(gamescene, idleframe.left, Direction.LEFT, "idle");
             this.createAnimationByFrame(gamescene, idleframe.right, Direction.RIGHT, "idle");
@@ -37,45 +38,45 @@ class Villager extends Player {
             this.createAnimationByFrame(gamescene, idleframe.down, Direction.DOWN, "idle");
         }
         let defaultDirection = Direction.DOWN;
-        if (villager.defaultDirection) {
-            const direction = getDirectionFromString(villager.defaultDirection);
+        if (enemy.defaultDirection) {
+            const direction = getDirectionFromString(enemy.defaultDirection);
             if (direction)
                 defaultDirection = direction;
         }
         this.setFaceDirection(defaultDirection);
 
         let rect: Phaser.Geom.Rectangle | undefined;
-        if (this.villager.movingrange) {
-            const left = this.villager.pos.x - this.villager.movingrange.width;
-            const top = this.villager.pos.y - this.villager.movingrange.height;
-            rect = new Phaser.Geom.Rectangle(left, top, this.villager.movingrange.width * 2, this.villager.movingrange.height * 2);
+        if (this.enemy.movingrange) {
+            const left = this.enemy.pos.x - this.enemy.movingrange.width;
+            const top = this.enemy.pos.y - this.enemy.movingrange.height;
+            rect = new Phaser.Geom.Rectangle(left, top, this.enemy.movingrange.width * 2, this.enemy.movingrange.height * 2);
         }
 
         this.gridPhysics = new GridPhysics(this, tileMap, GameScene.TILE_SIZE * 1.7, rect);
-        this.villagerControl = new VillagerControl(this.gridPhysics, this);
+        this.enemyControl = new EnemyControl(this.gridPhysics, this);
     }
 
     gridPhysics!: GridPhysics
-    villagerControl!: VillagerControl
-    static create(gameScene: GameScene, tileMap: Phaser.Tilemaps.Tilemap, villager: any): Villager {
-        const sprite = gameScene.add.sprite(villager.pos.x * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2,
-             villager.pos.y * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2,
-             villager.name);
+    enemyControl!: EnemyControl
+    static create(gameScene: GameScene, index: integer, pos: Phaser.Math.Vector2, tileMap: Phaser.Tilemaps.Tilemap, enemy: any): Enemy {
+        const sprite = gameScene.add.sprite(pos.x * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2,
+             pos.y * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2,
+             `enemy_${enemy.enemy}`);
         sprite.setDepth(3);
         sprite.scale = 3;
-        return new Villager(sprite, new Phaser.Math.Vector2(villager.pos.x, villager.pos.y), gameScene, tileMap, villager);
+        return new Enemy(sprite, new Phaser.Math.Vector2(pos.x, pos.y), gameScene, tileMap, enemy, index);
     }
 
     shouldMove(): boolean {
-        return this.state == VillagerState.WALKING;
+        return this.state == EnemyState.WALKING;
     }
 
     createAnimationByFrame(gameScene: GameScene, frame: any, direction: string, state: string) {
-        this.createAnimation(gameScene, frame.start, frame.end, direction, state);
+        this.createAnimation(gameScene, frame.start, frame.end, direction, state, `enemy_${this.enemy.enemy}`);
     }
 
     update(time: number, delta: number, players: Array<Player>) {
-        this.villagerControl.update(time);
+        this.enemyControl.update(time);
         this.gridPhysics.update(delta, players);
     }
 
@@ -84,7 +85,7 @@ class Villager extends Player {
         if (this.talking) return;
         this.talking = true;
         const prevState = this.state;
-        this.state = VillagerState.IDLE;
+        this.state = EnemyState.IDLE;
         if (player) {
             const playerpos = player.getTilePos();
             let direction = Direction.NONE;
@@ -103,14 +104,14 @@ class Villager extends Player {
             this.setFaceDirection(direction);
         }
 
-        const arr = this.villager.sentences;
+        const arr = this.enemy.sentences;
         const randomIndex = Math.floor(Math.random() * arr.length);
         this.showBubleText(arr[randomIndex]);
         setTimeout(() => {
             this.hideBubbleText();
             this.talking = false;
             this.state = prevState;
-            if (this.state == VillagerState.WALKING) {
+            if (this.state == EnemyState.WALKING) {
                 this.startAnimation(this.getDirection()!);
             }
         }, 2000);
@@ -118,8 +119,8 @@ class Villager extends Player {
     
     setFaceDirection(direction: Direction): void {
         super.setFaceDirection(direction);
-        if (this.state == VillagerState.IDLE)
+        if (this.state == EnemyState.IDLE)
             this.getSprite().play(this.animationkey(direction, "idle"));
     }
 }
-export default Villager;
+export default Enemy;
