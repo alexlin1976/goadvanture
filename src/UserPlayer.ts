@@ -20,6 +20,9 @@ export class UserPlayer extends Player {
     });
   }
 
+  maxHp: integer = 100;
+  hp: integer = 100;
+
   swordSprite!: Phaser.GameObjects.Sprite;
   constructor(
     private tileMap: Phaser.Tilemaps.Tilemap, 
@@ -105,6 +108,8 @@ export class UserPlayer extends Player {
     else {
       this.showHint(prevInteractive);
     }
+
+    this.drawHealthBar();
   }
 
   private showHint(prevInteractive?: any) {
@@ -142,4 +147,7 @@ export class UserPlayer extends Player {
     this.swordSprite.setPosition(position.x, position.y);
   }
 
+  getHealth(): number {
+    return this.hp / this.maxHp;
+  }
 }

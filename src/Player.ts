@@ -4,6 +4,7 @@ import { GameScene } from "./GameScene";
 export class Player {
   private bubbleGraphics: Phaser.GameObjects.Graphics;
   private bubbleText: Phaser.GameObjects.Text;
+  private healthBar: Phaser.GameObjects.Graphics;
   constructor(
     private key: string,
     private sprite: Phaser.GameObjects.Sprite,
@@ -23,6 +24,8 @@ export class Player {
     text.depth = 7;
     this.bubbleGraphics = graphics;
     this.bubbleText = text;
+    this.healthBar = gameScene.add.graphics();
+    this.healthBar.depth = 7;
   }
 
   getSprite(): Phaser.GameObjects.Sprite {
@@ -119,5 +122,20 @@ export class Player {
   hideBubbleText() {
     this.bubbleText.visible = false;
     this.bubbleGraphics.visible = false;
+  }
+
+  getHealth(): number {
+    return 1.0;
+  }
+
+  drawHealthBar() {
+    this.healthBar.clear();
+    const { x, y } = this.sprite.getTopCenter();
+    if (x && y) {
+      this.healthBar.fillStyle(0x000000, 0.8);
+      this.healthBar.fillRect(x - 10, y - 5, 20, 5);
+      this.healthBar.fillStyle(0xff0000, 1);
+      this.healthBar.fillRect(x - 10, y - 5, 20 * this.getHealth(), 5);
+    }
   }
 }

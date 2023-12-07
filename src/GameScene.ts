@@ -82,7 +82,7 @@ export class GameScene extends Phaser.Scene {
   }
   
   public update(_time: number, delta: number) {
-    const players = [...this.villagers, this.player];
+    const players = [...this.villagers, this.player, ...this.villains];
     this.gridControls.update();
     this.gridPhysics.update(delta, players);
     this.doorControls.update();

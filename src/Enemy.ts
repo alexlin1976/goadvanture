@@ -78,6 +78,7 @@ class Enemy extends Player {
     update(time: number, delta: number, players: Array<Player>) {
         this.enemyControl.update(time);
         this.gridPhysics.update(delta, players);
+        this.drawHealthBar();
     }
 
     private talking = false;
@@ -121,6 +122,12 @@ class Enemy extends Player {
         super.setFaceDirection(direction);
         if (this.state == EnemyState.IDLE)
             this.getSprite().play(this.animationkey(direction, "idle"));
+    }
+
+    maxHp: integer = 10;
+    hp: integer = 1;
+    getHealth(): number {
+        return this.hp / this.maxHp;
     }
 }
 export default Enemy;
