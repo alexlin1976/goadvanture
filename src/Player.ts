@@ -5,6 +5,7 @@ export class Player {
   private bubbleGraphics: Phaser.GameObjects.Graphics;
   private bubbleText: Phaser.GameObjects.Text;
   private healthBar: Phaser.GameObjects.Graphics;
+  private attacking: boolean = false;
   constructor(
     private key: string,
     private sprite: Phaser.GameObjects.Sprite,
@@ -28,6 +29,10 @@ export class Player {
     this.healthBar.depth = 7;
   }
 
+  isAttacking(): boolean {
+    return this.attacking;
+  }
+
   getSprite(): Phaser.GameObjects.Sprite {
     return this.sprite;
   }
@@ -37,18 +42,22 @@ export class Player {
   }
 
   getTilePos(): Phaser.Math.Vector2 {
+    if (this.isDead) return new Phaser.Math.Vector2(-100, -100);
     return this.tilePos.clone();
   }
 
   setTilePos(tilePosition: Phaser.Math.Vector2): void {
+    if (this.isDead) return;
     this.tilePos = tilePosition.clone();
   }
 
   getPosition(): Phaser.Math.Vector2 {
+    if (this.isDead) return new Phaser.Math.Vector2(-100, -100);
     return this.sprite.getCenter();
   }
 
   setPosition(position: Phaser.Math.Vector2): void {
+    if (this.isDead) return;
     this.sprite.setPosition(position.x, position.y);
   }
 
@@ -56,6 +65,8 @@ export class Player {
   private faceDirection = Direction.NONE;
 
   stopAnimation(direction: Direction) {
+    if (this.isDead) return;
+    this.attacking = false;
     this.currentDirection = undefined;
     const animationManager = this.sprite.anims.animationManager;
     // this.sprite.setTexture(this.key);
@@ -66,6 +77,8 @@ export class Player {
   }
 
   startAnimation(direction: Direction, isAttacking: boolean = false) {
+    if (this.isDead) return;
+    this.attacking = isAttacking;
     this.currentDirection = direction;
     if (isAttacking) {
       this.sprite.setTexture(`${this.key}-attack`);
@@ -137,5 +150,14 @@ export class Player {
       this.healthBar.fillStyle(0xff0000, 1);
       this.healthBar.fillRect(x - 10, y - 5 - 8 * 3, 20 * this.getHealth(), 5);
     }
+  }
+
+  private isDead = false;
+  dead() {
+    this.isDead = true;
+    this.sprite.visible = false;
+    this.healthBar.visible = false;
+    this.sprite.destroy();
+    this.healthBar.destroy();
   }
 }

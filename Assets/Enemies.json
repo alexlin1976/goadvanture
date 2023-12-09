@@ -1,6 +1,10 @@
 {
     "1": {
         "asset": "assets/Villain/Villain 01.png",
+        "hp": {
+            "min": 120,
+            "max": 200
+        },
         "idleframe": {
             "left": {
                 "start":4,
@@ -40,6 +44,10 @@
     },
     "2": {
         "asset": "assets/Villain/Villain 02.png",
+        "hp": {
+            "min": 120,
+            "max": 200
+        },
         "idleframe": {
             "left": {
                 "start":4,
@@ -79,6 +87,10 @@
     },
     "3": {
         "asset": "assets/Villain/Villain 03.png",
+        "hp": {
+            "min": 120,
+            "max": 200
+        },
         "idleframe": {
             "left": {
                 "start":4,
@@ -119,6 +131,10 @@
     "m0_0": {
         "asset": "assets/monsters/_srw_monsters_0_0.png",
         "name": "綠色史萊姆",
+        "hp": {
+            "min": 10,
+            "max": 15
+        },
         "slice": {
             "width": 48,
             "height": 48
@@ -163,6 +179,10 @@
     "m0_1": {
         "asset": "assets/monsters/_srw_monsters_0_1.png",
         "name": "藍色史萊姆",
+        "hp": {
+            "min": 15,
+            "max": 20
+        },
         "slice": {
             "width": 48,
             "height": 48
@@ -207,6 +227,10 @@
     "m0_2": {
         "asset": "assets/monsters/_srw_monsters_0_2.png",
         "name": "橘色史萊姆",
+        "hp": {
+            "min": 15,
+            "max": 25
+        },
         "slice": {
             "width": 48,
             "height": 48
@@ -251,6 +275,10 @@
     "m0_3": {
         "asset": "assets/monsters/_srw_monsters_0_3.png",
         "name": "紫色史萊姆",
+        "hp": {
+            "min": 15,
+            "max": 25
+        },
         "slice": {
             "width": 48,
             "height": 48
@@ -295,6 +323,10 @@
     "m0_4": {
         "asset": "assets/monsters/_srw_monsters_0_4.png",
         "name": "黃色史萊姆",
+        "hp": {
+            "min": 10,
+            "max": 15
+        },
         "slice": {
             "width": 48,
             "height": 48
@@ -339,6 +371,10 @@
     "m0_5": {
         "asset": "assets/monsters/_srw_monsters_0_5.png",
         "name": "灰色史萊姆",
+        "hp": {
+            "min": 10,
+            "max": 15
+        },
         "slice": {
             "width": 48,
             "height": 48
@@ -383,6 +419,10 @@
     "m0_6": {
         "asset": "assets/monsters/_srw_monsters_0_6.png",
         "name": "深灰色史萊姆",
+        "hp": {
+            "min": 15,
+            "max": 25
+        },
         "slice": {
             "width": 48,
             "height": 48
@@ -427,6 +467,10 @@
     "m0_7": {
         "asset": "assets/monsters/_srw_monsters_0_7.png",
         "name": "深藍色史萊姆",
+        "hp": {
+            "min": 20,
+            "max": 35
+        },
         "slice": {
             "width": 48,
             "height": 48

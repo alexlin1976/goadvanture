@@ -91,12 +91,13 @@ class GameMap {
         console.log(`number of availableTiles is ${availableTiles.length}`);
 
         const enemies: Enemy[] = [];
-        for (const villain of this.mapObj.enemies) {
-            if (villain.count) {
-                for (let i=0; i<villain.count; i++) {
+        for (const enemy of this.mapObj.enemies) {
+            const asset = gameScript.enemy(enemy.enemy);
+            if (enemy.count) {
+                for (let i=0; i<enemy.count; i++) {
                     const randomIndex = Math.floor(Math.random() * availableTiles.length);
                     const pos = availableTiles.splice(randomIndex, 1)[0];
-                    enemies.push(Enemy.create(gameScene, i, pos, tilemap, villain));
+                    enemies.push(Enemy.create(gameScene, i, pos, tilemap, {...enemy,...asset}));
                 }
             }
         }

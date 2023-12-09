@@ -13,6 +13,8 @@ export enum EnemyState {
 
 class Enemy extends Player {
     private state: EnemyState;
+    private hp: integer;
+    private maxHp: integer;
     constructor(
         sprite: Phaser.GameObjects.Sprite,
         tilePos: Phaser.Math.Vector2,
@@ -23,6 +25,15 @@ class Enemy extends Player {
     ) {
         super(enemy.name ?? `enemy_${enemy.enemy}_${index}`, sprite,tilePos,gamescene);
         this.state = enemy.state == "stay" ? EnemyState.IDLE : EnemyState.WALKING;
+        if (enemy.hp && enemy.hp.min && enemy.hp.max) {
+            const diff = enemy.hp.max - enemy.hp.min;
+            this.hp = Math.floor(enemy.hp.min + Math.random() * diff);
+            this.maxHp = this.hp;
+        }
+        else {
+            this.hp = 10;
+            this.maxHp = this.hp;
+        }
         const movingframe = gameScript.enemy(this.enemy.enemy).movingframe;
         if (movingframe) {
             this.createAnimationByFrame(gamescene, movingframe.left, Direction.LEFT, "moving");
@@ -124,10 +135,17 @@ class Enemy extends Player {
             this.getSprite().play(this.animationkey(direction, "idle"));
     }
 
-    maxHp: integer = 10;
-    hp: integer = 1;
     getHealth(): number {
         return this.hp / this.maxHp;
+    }
+
+    hitby(ap: integer) {
+        console.log(`hit by player by ${ap}`);
+        this.hp -= ap;
+        if (this.hp <= 0) {
+            this.hp = 0;
+            this.dead();
+        }
     }
 }
 export default Enemy;

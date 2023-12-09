@@ -1,4 +1,5 @@
 import { Direction } from "./Direction";
+import Enemy from "./Enemy";
 import GameMap from "./GameMap";
 import { GameScene } from "./GameScene";
 import { Player } from "./Player";
@@ -20,8 +21,11 @@ export class UserPlayer extends Player {
     });
   }
 
-  maxHp: integer = 100;
-  hp: integer = 100;
+  private maxHp: integer = 100;
+  private hp: integer = 100;
+  private ap: integer = 3;
+  private range: integer = 10;
+  private attackingSpeed = 1000;
 
   swordSprite!: Phaser.GameObjects.Sprite;
   constructor(
@@ -110,6 +114,33 @@ export class UserPlayer extends Player {
     }
 
     this.drawHealthBar();
+  }
+
+  private lastAttack?: number = undefined;
+  updateWith(enemies: Array<Enemy>, _time: number) {
+    if (!this.isAttacking()) {
+      this.lastAttack = undefined;
+      return;
+    }
+    if (this.lastAttack && _time - this.lastAttack < this.attackingSpeed) return;
+    this.lastAttack = _time;
+    for (const enemy of enemies) {
+      const ePos = enemy.getPosition();
+      const pPos = this.getPosition();
+      const distance = Math.sqrt(Math.pow(ePos.x - pPos.x, 2) + Math.pow(ePos.y - pPos.y, 2));
+      // console.log(`distance = ${distance}`);
+      if (distance < GameScene.TILE_SIZE + this.range) {
+        let facing = false;
+        switch (this.getFaceDirection()) {
+          case Direction.UP:facing = ePos.y <= pPos.y;break;
+          case Direction.DOWN:facing = ePos.y >= pPos.y;break;
+          case Direction.LEFT:facing = ePos.x <= pPos.x;break;
+          case Direction.RIGHT:facing = ePos.x >= pPos.x;break;
+          default:break;
+        }
+        if (facing) enemy.hitby(this.ap);
+      }
+    }
   }
 
   private showHint(prevInteractive?: any) {

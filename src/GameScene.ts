@@ -89,6 +89,7 @@ export class GameScene extends Phaser.Scene {
     this.villagers.forEach(villager => villager.update(_time, delta, players));
     this.enemies.forEach(villain => villain.update(_time, delta, players));
     this.player.update(this.villagers, this.aKey.isDown);
+    this.player.updateWith(this.enemies, _time);
   }
 
   gamemap!: GameMap
