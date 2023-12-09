@@ -59,9 +59,9 @@ export class Player {
     this.currentDirection = undefined;
     const animationManager = this.sprite.anims.animationManager;
     // this.sprite.setTexture(this.key);
+    this.sprite.anims.stop();
     if (direction == Direction.NONE) return;
     const standingFrame = animationManager.get(this.animationkey(direction, "moving")).frames[1].frame.name;
-    this.sprite.anims.stop();
     this.sprite.setFrame(standingFrame);
   }
 
@@ -130,12 +130,12 @@ export class Player {
 
   drawHealthBar() {
     this.healthBar.clear();
-    const { x, y } = this.sprite.getTopCenter();
+    const { x, y } = this.sprite.getCenter();
     if (x && y) {
       this.healthBar.fillStyle(0x000000, 0.8);
-      this.healthBar.fillRect(x - 10, y - 5, 20, 5);
+      this.healthBar.fillRect(x - 10, y - 5 - 8 * 3, 20, 5);
       this.healthBar.fillStyle(0xff0000, 1);
-      this.healthBar.fillRect(x - 10, y - 5, 20 * this.getHealth(), 5);
+      this.healthBar.fillRect(x - 10, y - 5 - 8 * 3, 20 * this.getHealth(), 5);
     }
   }
 }

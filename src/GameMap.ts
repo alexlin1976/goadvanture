@@ -42,10 +42,13 @@ class GameMap {
         if (!this.mapObj.enemies) return;
         for (const enemy of this.mapObj.enemies) {
             const asset = gameScript.enemy(enemy.enemy);
-            console.log(`load villain sheet key: ${enemy.name} asset:${asset.asset}`)
+            console.log(`load enemy sheet key: ${asset.name} asset:${asset.asset}`)
+            let width = (asset.slice) ? asset.slice.width : 16;
+            let height = (asset.slice) ? asset.slice.height : 16;
+            console.log(`enemy size (${width}, ${height})`)
             gameScene.load.spritesheet(`enemy_${enemy.enemy}`, asset.asset, {
-                frameWidth: 16,
-                frameHeight: 16,
+                frameWidth: width,
+                frameHeight: height,
               });
         }
     }

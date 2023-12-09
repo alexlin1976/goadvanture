@@ -115,5 +115,358 @@
                 "end": 27
             }
         }
+    },
+    "m0_0": {
+        "asset": "assets/monsters/_srw_monsters_0_0.png",
+        "name": "綠色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
+    },
+    "m0_1": {
+        "asset": "assets/monsters/_srw_monsters_0_1.png",
+        "name": "藍色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
+    },
+    "m0_2": {
+        "asset": "assets/monsters/_srw_monsters_0_2.png",
+        "name": "橘色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
+    },
+    "m0_3": {
+        "asset": "assets/monsters/_srw_monsters_0_3.png",
+        "name": "紫色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
+    },
+    "m0_4": {
+        "asset": "assets/monsters/_srw_monsters_0_4.png",
+        "name": "黃色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
+    },
+    "m0_5": {
+        "asset": "assets/monsters/_srw_monsters_0_5.png",
+        "name": "灰色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
+    },
+    "m0_6": {
+        "asset": "assets/monsters/_srw_monsters_0_6.png",
+        "name": "深灰色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
+    },
+    "m0_7": {
+        "asset": "assets/monsters/_srw_monsters_0_7.png",
+        "name": "深藍色史萊姆",
+        "slice": {
+            "width": 48,
+            "height": 48
+        },
+        "idleframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        },
+        "movingframe": {
+            "left": {
+                "start":3,
+                "end": 4
+            },
+            "down": {
+                "start":0,
+                "end": 2
+            },
+            "up": {
+                "start":9,
+                "end": 11
+            },
+            "right": {
+                "start":6,
+                "end": 8
+            }
+        }
     }
+
 }

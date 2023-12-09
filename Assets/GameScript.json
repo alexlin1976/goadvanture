@@ -118,10 +118,22 @@
             "villagers": [],
             "enemies": [
                 {
-                    "enemy": 3,
-                    "count": 10,
+                    "enemy": "m0_0",
+                    "count": 4,
+                    "state": "movingaround"
+                },
+                {
+                    "enemy": "m0_2",
+                    "count": 3,
+                    "state": "movingaround"
+                },
+                {
+                    "enemy": "m0_7",
+                    "count": 5,
                     "state": "movingaround"
                 }
+
+
             ]
         }
     },

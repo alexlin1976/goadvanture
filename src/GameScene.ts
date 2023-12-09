@@ -29,7 +29,7 @@ export class GameScene extends Phaser.Scene {
   private gridPhysics!: GridPhysics;
   private doorControls!: DoorControls;
   private villagers!: [Villager];
-  private villains!: Enemy[];
+  private enemies!: Enemy[];
 
   public create() {
     const map = this.make.tilemap({ key: this.scene.key });
@@ -46,7 +46,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     this.villagers = this.gamemap.createVillagers(this, map);
-    this.villains = this.gamemap.createEnemies(this, map);
+    this.enemies = this.gamemap.createEnemies(this, map);
 
     const startPos = GameScene.startPos != null ? GameScene.startPos : this.gamemap.startPos();
     const player = new UserPlayer(
@@ -82,12 +82,12 @@ export class GameScene extends Phaser.Scene {
   }
   
   public update(_time: number, delta: number) {
-    const players = [...this.villagers, this.player, ...this.villains];
+    const players = [...this.villagers, this.player, ...this.enemies];
     this.gridControls.update();
     this.gridPhysics.update(delta, players);
     this.doorControls.update();
     this.villagers.forEach(villager => villager.update(_time, delta, players));
-    this.villains.forEach(villain => villain.update(_time, delta, players));
+    this.enemies.forEach(villain => villain.update(_time, delta, players));
     this.player.update(this.villagers, this.aKey.isDown);
   }
 

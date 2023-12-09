@@ -55,7 +55,9 @@ export class GridPhysics {
 
   private hasAnotherPlayer(pos: Vector2): boolean {
     const playerRect = new Phaser.Geom.Rectangle(pos.x - GameScene.TILE_SIZE / 2, pos.y - GameScene.TILE_SIZE / 2, GameScene.TILE_SIZE, GameScene.TILE_SIZE);
-    return this.currentPlayers.some(player => player !== this.player && Phaser.Geom.Rectangle.Overlaps(playerRect, player.getSprite().getBounds()));
+    return this.currentPlayers.some(player => player !== this.player && 
+      Phaser.Geom.Rectangle.Overlaps(playerRect, 
+        new Phaser.Geom.Rectangle(player.getPosition().x - GameScene.TILE_SIZE / 2, player.getPosition().y - GameScene.TILE_SIZE / 2, GameScene.TILE_SIZE, GameScene.TILE_SIZE)));
   }
   
   private movementDirectionVectors: {
@@ -85,6 +87,8 @@ export class GridPhysics {
     if (this.attacking == attacking) return;
     this.attacking = attacking;
     this.stopMoving();
+    if (this.attacking)
+      this.player.startAnimation(this.player.getFaceDirection(), this.attacking);
   }
   isAttacking(): boolean {
     return this.attacking;
@@ -96,7 +100,8 @@ export class GridPhysics {
   }
 
   private stopMoving(): void {
-    this.player.stopAnimation(this.movementDirection);
+    if (!this.attacking) 
+      this.player.stopAnimation(this.movementDirection);
     this.movementDirection = Direction.NONE;
   }
 
@@ -112,12 +117,16 @@ export class GridPhysics {
   private updatePlayerPosition(delta: number) {
     const pixelsToWalkThisUpdate = this.getPixelsToWalkThisUpdate(delta);
 
-    if (this.shouldContinueMoving(pixelsToWalkThisUpdate)) {
-      this.movePlayerSprite(pixelsToWalkThisUpdate);
-      this.updatePlayerTilePos();
+    const blockMoving = this.isBlockingByMoving(this.lastMovementIntent, pixelsToWalkThisUpdate);
+    if (this.movementDirection != this.lastMovementIntent) {
+      this.stopMoving();
+    }
+    else if (blockMoving) {
+      if (!this.attacking) this.stopMoving();
     }
     else {
-      this.stopMoving();
+      this.movePlayerSprite(pixelsToWalkThisUpdate);
+      this.updatePlayerTilePos();
     }
   }
 
@@ -126,12 +135,6 @@ export class GridPhysics {
       new Phaser.Math.Vector2(
         Math.floor((this.player.getPosition().x) / GameScene.TILE_SIZE), 
         Math.floor((this.player.getPosition().y) / GameScene.TILE_SIZE)));
-  }
-
-  private shouldContinueMoving(pixelsToMove: number): boolean {
-    return (
-      this.movementDirection == this.lastMovementIntent &&
-      !this.isBlockingByMoving(this.lastMovementIntent, pixelsToMove));
   }
 
   private movePlayerSprite(pixelsToMove: number) {
