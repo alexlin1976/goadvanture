@@ -2,7 +2,7 @@ import { Direction } from "./Direction";
 import { DoorControls } from "./DoorControls";
 import { GridPhysics } from "./GridPhysics";
 
-export class GridControls {
+export class UserPlayerControls {
   constructor(
     private input: Phaser.Input.InputPlugin,
     private gridPhysics: GridPhysics,

@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import { UserPlayer } from "./UserPlayer";
-import { GridControls } from "./GridControls";
+import { UserPlayerControls } from "./GridControls";
 import { GridPhysics } from "./GridPhysics";
 import { DoorControls } from "./DoorControls";
 import { gameScript } from "./GameScriptLoader";
@@ -25,7 +25,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private player!: UserPlayer;
-  private gridControls!: GridControls;
+  private gridControls!: UserPlayerControls;
   private gridPhysics!: GridPhysics;
   private doorControls!: DoorControls;
   private villagers!: [Villager];
@@ -59,7 +59,7 @@ export class GameScene extends Phaser.Scene {
 
     this.gridPhysics = new GridPhysics(player, map);
     this.doorControls = new DoorControls(player, map, this);
-    this.gridControls = new GridControls(
+    this.gridControls = new UserPlayerControls(
       this.input,
       this.gridPhysics,
       this.doorControls
