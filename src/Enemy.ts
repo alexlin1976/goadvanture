@@ -15,6 +15,7 @@ export enum EnemyState {
 class Enemy extends Player {
     private state: EnemyState;
     private hp: integer;
+    private ap: integer;
     private maxHp: integer;
     constructor(
         sprite: Phaser.GameObjects.Sprite,
@@ -35,6 +36,7 @@ class Enemy extends Player {
             this.hp = 10;
             this.maxHp = this.hp;
         }
+        this.ap = enemy.ap ? enemy.ap : 1;
         const movingframe = gameScript.enemy(this.enemy.enemy).movingframe;
         if (movingframe) {
             this.createAnimationByFrame(gamescene, movingframe.left, Direction.LEFT, "moving");
@@ -117,7 +119,7 @@ class Enemy extends Player {
                 this.startAnimation(ePos.y < pPos.y ? Direction.UP : Direction.DOWN, true);
             }
         }
-        super.updateEnemies(enemies, _time, 1, 800, 10);
+        super.updateEnemies(enemies, _time, this.ap, 800, 10);
     }
 
     private talking = false;
