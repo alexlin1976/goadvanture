@@ -160,4 +160,41 @@ export class Player {
     this.sprite.destroy();
     this.healthBar.destroy();
   }
+
+  insideRange(enemy: Player, range: integer): boolean {
+    const ePos = enemy.getPosition();
+    const pPos = this.getPosition();
+    const distance = Math.sqrt(Math.pow(ePos.x - pPos.x, 2) + Math.pow(ePos.y - pPos.y, 2));
+    return (distance < GameScene.TILE_SIZE + range);
+  }
+
+  // Attacking
+  private lastAttack?: number = undefined;
+  updateEnemies(enemies: Array<Player>, _time: number, ap: integer, attackingSpeed: integer, range: integer) {
+    if (!this.isAttacking()) {
+      this.lastAttack = undefined;
+      return;
+    }
+    if (this.lastAttack && _time - this.lastAttack < attackingSpeed) return;
+    this.lastAttack = _time;
+    for (const enemy of enemies) {
+      if (this.insideRange(enemy, range)) {
+        const ePos = enemy.getPosition();
+        const pPos = this.getPosition();
+          let facing = false;
+        switch (this.getFaceDirection()) {
+          case Direction.UP:facing = ePos.y <= pPos.y;break;
+          case Direction.DOWN:facing = ePos.y >= pPos.y;break;
+          case Direction.LEFT:facing = ePos.x <= pPos.x;break;
+          case Direction.RIGHT:facing = ePos.x >= pPos.x;break;
+          default:break;
+        }
+        if (facing) enemy.hitby(ap);
+      }
+    }
+  }
+
+  hitby(ap: integer) {
+
+  }
 }

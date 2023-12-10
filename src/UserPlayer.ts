@@ -86,7 +86,7 @@ export class UserPlayer extends Player {
   };
 
   currentInteractive?: any = null;
-  update(villagers: Array<Villager>, interact: boolean) {
+  update(villagers: Array<Villager>, interact: boolean, enemies: Array<Enemy>, _time: number) {
     const prevInteractive = this.currentInteractive;
     const addition = this.faceDirectionVectors[this.getFaceDirection()];
     if (addition) {
@@ -113,34 +113,8 @@ export class UserPlayer extends Player {
       this.showHint(prevInteractive);
     }
 
+    this.updateEnemies(enemies, _time, this.ap, this.attackingSpeed, this.range);
     this.drawHealthBar();
-  }
-
-  private lastAttack?: number = undefined;
-  updateWith(enemies: Array<Enemy>, _time: number) {
-    if (!this.isAttacking()) {
-      this.lastAttack = undefined;
-      return;
-    }
-    if (this.lastAttack && _time - this.lastAttack < this.attackingSpeed) return;
-    this.lastAttack = _time;
-    for (const enemy of enemies) {
-      const ePos = enemy.getPosition();
-      const pPos = this.getPosition();
-      const distance = Math.sqrt(Math.pow(ePos.x - pPos.x, 2) + Math.pow(ePos.y - pPos.y, 2));
-      // console.log(`distance = ${distance}`);
-      if (distance < GameScene.TILE_SIZE + this.range) {
-        let facing = false;
-        switch (this.getFaceDirection()) {
-          case Direction.UP:facing = ePos.y <= pPos.y;break;
-          case Direction.DOWN:facing = ePos.y >= pPos.y;break;
-          case Direction.LEFT:facing = ePos.x <= pPos.x;break;
-          case Direction.RIGHT:facing = ePos.x >= pPos.x;break;
-          default:break;
-        }
-        if (facing) enemy.hitby(this.ap);
-      }
-    }
   }
 
   private showHint(prevInteractive?: any) {
@@ -169,6 +143,7 @@ export class UserPlayer extends Player {
   }
 
   stopAnimation(direction: Direction): void {
+    // console.log(`current sword frame: ${this.swordSprite.anims.currentFrame?.index}`)
     this.swordSprite.visible = false;
     super.stopAnimation(direction);
   }
@@ -176,6 +151,11 @@ export class UserPlayer extends Player {
   setPosition(position: Phaser.Math.Vector2): void {
     super.setPosition(position);
     this.swordSprite.setPosition(position.x, position.y);
+  }
+
+  hitby(ap: number): void {
+    this.hp -= ap;
+    this.drawHealthBar();
   }
 
   getHealth(): number {

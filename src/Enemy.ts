@@ -5,6 +5,7 @@ import { gameScript } from "./GameScriptLoader";
 import { GridPhysics } from "./GridPhysics";
 import { Player } from "./Player";
 import { EnemyControl } from "./EnemyControl";
+import { UserPlayer } from "./UserPlayer";
 
 export enum EnemyState {
     IDLE = "idle",
@@ -40,6 +41,10 @@ class Enemy extends Player {
             this.createAnimationByFrame(gamescene, movingframe.right, Direction.RIGHT, "moving");
             this.createAnimationByFrame(gamescene, movingframe.up, Direction.UP, "moving");
             this.createAnimationByFrame(gamescene, movingframe.down, Direction.DOWN, "moving");
+            this.createAnimationByFrame(gamescene, movingframe.left, Direction.LEFT, "attacking");
+            this.createAnimationByFrame(gamescene, movingframe.right, Direction.RIGHT, "attacking");
+            this.createAnimationByFrame(gamescene, movingframe.up, Direction.UP, "attacking");
+            this.createAnimationByFrame(gamescene, movingframe.down, Direction.DOWN, "attacking");
         }
         const idleframe = gameScript.enemy(this.enemy.enemy).idleframe;
         if (idleframe) {
@@ -86,10 +91,33 @@ class Enemy extends Player {
         this.createAnimation(gameScene, frame.start, frame.end, direction, state, `enemy_${this.enemy.enemy}`);
     }
 
+    // isAttacking(): boolean {
+    //     return true;
+    // }
+
     update(time: number, delta: number, players: Array<Player>) {
-        this.enemyControl.update(time);
+        const userPlayer = players.filter(player => player instanceof UserPlayer);
+        this.enemyControl.update(time, delta, userPlayer);
         this.gridPhysics.update(delta, players);
+        this.updateEnemies(userPlayer, time, 10, 800, 10);
         this.drawHealthBar();
+    }
+
+    updateEnemies(enemies: Player[], _time: number, ap: number, attackingSpeed: number, range: number): void {
+        const userPlayer = enemies[0];
+        if (this.insideRange(userPlayer, 10)) {
+            const ePos = this.getPosition();
+            const pPos = userPlayer.getPosition();
+            const diffX = Math.abs(ePos.x - pPos.x);
+            const diffY = Math.abs(ePos.y - pPos.y);
+            if (diffX < diffY) {
+                this.startAnimation(ePos.x < pPos.x ? Direction.LEFT : Direction.RIGHT, true);
+            }
+            else {
+                this.startAnimation(ePos.y < pPos.y ? Direction.UP : Direction.DOWN, true);
+            }
+        }
+        super.updateEnemies(enemies, _time, 1, 800, 10);
     }
 
     private talking = false;
@@ -146,6 +174,7 @@ class Enemy extends Player {
             this.hp = 0;
             this.dead();
         }
+        this.drawHealthBar();
     }
 }
 export default Enemy;

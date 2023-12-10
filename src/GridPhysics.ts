@@ -75,7 +75,7 @@ export class GridPhysics {
     if (this.isMoving()) {
       return;
     }
-      this.startMoving(direction);
+    this.startMoving(direction);
   }
 
   private isMoving(): boolean {
@@ -115,7 +115,8 @@ export class GridPhysics {
   }
 
   private updatePlayerPosition(delta: number) {
-    const pixelsToWalkThisUpdate = this.getPixelsToWalkThisUpdate(delta);
+    const pixelsToWalkThisUpdate = this.targetDistance ? this.targetDistance : this.getPixelsToWalkThisUpdate(delta);
+    this.targetDistance = undefined;
 
     const blockMoving = this.isBlockingByMoving(this.lastMovementIntent, pixelsToWalkThisUpdate);
     if (this.movementDirection != this.lastMovementIntent) {
@@ -149,5 +150,27 @@ export class GridPhysics {
  private getPixelsToWalkThisUpdate(delta: number): number {
    const deltaInSeconds = delta / 1000;
    return this.speedPixelsPerSecond * deltaInSeconds;
+ }
+
+ targetDistance?: number;
+ moveTowards(player: Player, delta: number): Direction | null {
+  const pixelsToWalkThisUpdate = this.getPixelsToWalkThisUpdate(delta);
+  const pPose = player.getPosition();
+  const pose = this.player.getPosition();
+  const minDistance = Math.min(pixelsToWalkThisUpdate, Math.abs(pPose.x - pose.x), Math.abs(pPose.y - pose.y));
+  this.targetDistance = minDistance;
+  if (pPose.x < pose.x && !this.isBlockingByMoving(Direction.LEFT, minDistance)) {
+    return Direction.LEFT;
+  }
+  else if (pPose.x > pose.x && !this.isBlockingByMoving(Direction.RIGHT, minDistance)) {
+    return Direction.RIGHT;
+  }
+  if (pPose.y < pose.y && !this.isBlockingByMoving(Direction.UP, minDistance)) {
+    return Direction.UP;
+  }
+  else if (pPose.y > pose.y && !this.isBlockingByMoving(Direction.DOWN, minDistance)) {
+    return Direction.DOWN;
+  }
+  return null;
  }
 }
