@@ -69,39 +69,28 @@ export class GridPhysics {
     [Direction.RIGHT]: Vector2.RIGHT,
   };
 
-  movePlayer(direction: Direction): void {
+  movePlayer(direction: Direction, attacking: boolean): void {
     this.player.setFaceDirection(direction);
     this.lastMovementIntent = direction;
     if (this.isMoving()) {
       return;
     }
-    this.startMoving(direction);
+    this.startMoving(direction, attacking);
   }
 
   private isMoving(): boolean {
     return this.movementDirection != Direction.NONE;
   }
 
-  private attacking: boolean = false;
-  setAttacking(attacking: boolean) {
-    if (this.attacking == attacking) return;
-    this.attacking = attacking;
-    this.stopMoving();
-    if (this.attacking)
-      this.player.startAnimation(this.player.getFaceDirection(), this.attacking);
-  }
-  isAttacking(): boolean {
-    return this.attacking;
-  }
-  private startMoving(direction: Direction): void {
-    this.player.startAnimation(direction, this.attacking);
+  private startMoving(direction: Direction, attacking: boolean): void {
+    this.player.startAnimation(direction, attacking);
     this.movementDirection = direction;
     this.updatePlayerTilePos();
   }
 
   private stopMoving(): void {
-    if (!this.attacking) 
-      this.player.stopAnimation(this.movementDirection);
+    // if (!this.attacking) 
+    //   this.player.stopAnimation(this.movementDirection);
     this.movementDirection = Direction.NONE;
   }
 
@@ -122,10 +111,7 @@ export class GridPhysics {
     if (this.movementDirection != this.lastMovementIntent) {
       this.stopMoving();
     }
-    else if (blockMoving) {
-      if (!this.attacking) this.stopMoving();
-    }
-    else {
+    else if (!blockMoving) {
       this.movePlayerSprite(pixelsToWalkThisUpdate);
       this.updatePlayerTilePos();
     }

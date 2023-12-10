@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import { UserPlayer } from "./UserPlayer";
-import { UserPlayerControls } from "./GridControls";
+import { UserPlayerControls } from "./UserPlayerControls";
 import { GridPhysics } from "./GridPhysics";
 import { DoorControls } from "./DoorControls";
 import { gameScript } from "./GameScriptLoader";
@@ -25,7 +25,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private player!: UserPlayer;
-  private gridControls!: UserPlayerControls;
+  private userPlayerControls!: UserPlayerControls;
   private gridPhysics!: GridPhysics;
   private doorControls!: DoorControls;
   private villagers!: [Villager];
@@ -59,9 +59,10 @@ export class GameScene extends Phaser.Scene {
 
     this.gridPhysics = new GridPhysics(player, map);
     this.doorControls = new DoorControls(player, map, this);
-    this.gridControls = new UserPlayerControls(
+    this.userPlayerControls = new UserPlayerControls(
       this.input,
       this.gridPhysics,
+      this.player,
       this.doorControls
     );
 
@@ -83,7 +84,7 @@ export class GameScene extends Phaser.Scene {
   
   public update(_time: number, delta: number) {
     const players = [...this.villagers, this.player, ...this.enemies];
-    this.gridControls.update();
+    this.userPlayerControls.update(_time, delta);
     this.gridPhysics.update(delta, players);
     this.doorControls.update();
     this.villagers.forEach(villager => villager.update(_time, delta, players));

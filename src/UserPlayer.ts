@@ -19,6 +19,10 @@ export class UserPlayer extends Player {
       frameWidth: 48,
       frameHeight: 48,
     });
+    gamescene.load.spritesheet("player-dead", "assets/Odderf-Death-Sheet.png", {
+      frameWidth: 32,
+      frameHeight: 16,
+    });
   }
 
   private maxHp: integer = 100;
@@ -26,6 +30,7 @@ export class UserPlayer extends Player {
   private ap: integer = 3;
   private range: integer = 10;
   private attackingSpeed = 1000;
+  private userAttacking = false;
 
   swordSprite!: Phaser.GameObjects.Sprite;
   constructor(
@@ -65,7 +70,18 @@ export class UserPlayer extends Player {
     this.createAnimation(gamescene, 28, 31, Direction.RIGHT, "sword", "player-sword");
     this.createAnimation(gamescene, 11, 14, Direction.DOWN, "sword", "player-sword");
     this.createAnimation(gamescene, 20, 24, Direction.LEFT, "sword", "player-sword");
-  }
+
+    gamescene.anims.create({
+      key: "player-death",
+      frames: gamescene.anims.generateFrameNumbers(
+        "player-dead", {
+          start: 6,
+          end: 12
+      }),
+      frameRate: 10,
+      repeat: 0
+  });
+}
 
   setTilePos(tilePosition: Phaser.Math.Vector2): void {
     super.setTilePos(tilePosition);
@@ -85,8 +101,18 @@ export class UserPlayer extends Player {
     [Direction.RIGHT]: Phaser.Math.Vector2.RIGHT,
   };
 
+  setUserAttacking(attacking: boolean, _time: number): boolean {
+    if (this.userAttacking == attacking) return this.userAttacking;
+    if (this.lastAttack && _time - this.lastAttack < this.attackingSpeed) return this.userAttacking;
+    this.userAttacking = attacking;
+    if (this.userAttacking) this.startAnimation(this.getFaceDirection(), this.userAttacking);
+    else this.stopAnimation(this.getFaceDirection());
+    return this.userAttacking;
+  }
+
   currentInteractive?: any = null;
   update(villagers: Array<Villager>, interact: boolean, enemies: Array<Enemy>, _time: number) {
+    if (this.isDead()) return;
     const prevInteractive = this.currentInteractive;
     const addition = this.faceDirectionVectors[this.getFaceDirection()];
     if (addition) {
@@ -143,7 +169,7 @@ export class UserPlayer extends Player {
   }
 
   stopAnimation(direction: Direction): void {
-    // console.log(`current sword frame: ${this.swordSprite.anims.currentFrame?.index}`)
+    if (this.userAttacking) return;
     this.swordSprite.visible = false;
     super.stopAnimation(direction);
   }
@@ -156,6 +182,19 @@ export class UserPlayer extends Player {
   hitby(ap: number): void {
     this.hp -= ap;
     this.drawHealthBar();
+
+    if (this.hp <= 0)
+      this.dead();
+  }
+
+  dead(destroy?: boolean): void {
+    super.dead(false);
+    this.stopAnimation(Direction.NONE);
+    this.sprite.setTexture("player-dead");
+    this.sprite.anims.play("player-death").on('animationcomplete', () => {
+      this.sprite.anims.stop();
+  });
+
   }
 
   getHealth(): number {

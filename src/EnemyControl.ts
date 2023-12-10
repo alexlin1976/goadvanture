@@ -20,7 +20,7 @@ export class EnemyControl {
         if (newDiretion) {
           this.lastUpdate = time;
           this.currentDirection = newDiretion;
-          this.gridPhysics.movePlayer(this.currentDirection);
+          this.gridPhysics.movePlayer(this.currentDirection, true);
           // console.log(`chasing the player ${this.currentDirection}`);
           return;
         }
@@ -34,7 +34,7 @@ export class EnemyControl {
           const newDirection = Math.floor(Math.random() * 4) + 1;
           this.currentDirection = Object.values(Direction)[newDirection];
       }
-      this.gridPhysics.movePlayer(this.currentDirection);
+      this.gridPhysics.movePlayer(this.currentDirection, true);
     }
 
     nearbyRange = 300;

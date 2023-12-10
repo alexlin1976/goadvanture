@@ -6,12 +6,14 @@ export class Player {
   private bubbleText: Phaser.GameObjects.Text;
   private healthBar: Phaser.GameObjects.Graphics;
   private attacking: boolean = false;
+  sprite: Phaser.GameObjects.Sprite;
   constructor(
     private key: string,
-    private sprite: Phaser.GameObjects.Sprite,
+    sprite: Phaser.GameObjects.Sprite,
     private tilePos: Phaser.Math.Vector2,
     gameScene: GameScene
   ) {
+    this.sprite = sprite;
     this.sprite.setPosition(
       tilePos.x * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2,
       tilePos.y * GameScene.TILE_SIZE + GameScene.TILE_SIZE / 2
@@ -42,22 +44,22 @@ export class Player {
   }
 
   getTilePos(): Phaser.Math.Vector2 {
-    if (this.isDead) return new Phaser.Math.Vector2(-100, -100);
+    if (this._isDead) return new Phaser.Math.Vector2(-100, -100);
     return this.tilePos.clone();
   }
 
   setTilePos(tilePosition: Phaser.Math.Vector2): void {
-    if (this.isDead) return;
+    if (this._isDead) return;
     this.tilePos = tilePosition.clone();
   }
 
   getPosition(): Phaser.Math.Vector2 {
-    if (this.isDead) return new Phaser.Math.Vector2(-100, -100);
+    if (this._isDead) return new Phaser.Math.Vector2(-100, -100);
     return this.sprite.getCenter();
   }
 
   setPosition(position: Phaser.Math.Vector2): void {
-    if (this.isDead) return;
+    if (this._isDead) return;
     this.sprite.setPosition(position.x, position.y);
   }
 
@@ -65,11 +67,11 @@ export class Player {
   private faceDirection = Direction.NONE;
 
   stopAnimation(direction: Direction) {
-    if (this.isDead) return;
+    if (this._isDead) return;
     this.attacking = false;
     this.currentDirection = undefined;
     const animationManager = this.sprite.anims.animationManager;
-    // this.sprite.setTexture(this.key);
+    this.sprite.setTexture(this.key);
     this.sprite.anims.stop();
     if (direction == Direction.NONE) return;
     const standingFrame = animationManager.get(this.animationkey(direction, "moving")).frames[1].frame.name;
@@ -77,7 +79,7 @@ export class Player {
   }
 
   startAnimation(direction: Direction, isAttacking: boolean = false) {
-    if (this.isDead) return;
+    if (this._isDead) return;
     this.attacking = isAttacking;
     this.currentDirection = direction;
     if (isAttacking) {
@@ -152,13 +154,19 @@ export class Player {
     }
   }
 
-  private isDead = false;
-  dead() {
-    this.isDead = true;
-    this.sprite.visible = false;
+  private _isDead = false;
+  dead(destroy: boolean = true) {
+    this._isDead = true;
+    if (destroy) {
+      this.sprite.visible = false;
+      this.sprite.destroy();
+    }
     this.healthBar.visible = false;
-    this.sprite.destroy();
     this.healthBar.destroy();
+  }
+
+  isDead(): boolean {
+    return this._isDead;
   }
 
   insideRange(enemy: Player, range: integer): boolean {
@@ -169,7 +177,7 @@ export class Player {
   }
 
   // Attacking
-  private lastAttack?: number = undefined;
+  lastAttack?: number = undefined;
   updateEnemies(enemies: Array<Player>, _time: number, ap: integer, attackingSpeed: integer, range: integer) {
     if (!this.isAttacking()) {
       this.lastAttack = undefined;
