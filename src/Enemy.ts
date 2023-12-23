@@ -17,6 +17,8 @@ class Enemy extends Player {
     private hp: integer;
     private ap: integer;
     private maxHp: integer;
+    private range: integer;
+    private attackPeriod: integer;
     constructor(
         sprite: Phaser.GameObjects.Sprite,
         tilePos: Phaser.Math.Vector2,
@@ -37,6 +39,8 @@ class Enemy extends Player {
             this.maxHp = this.hp;
         }
         this.ap = enemy.ap ? enemy.ap : 1;
+        this.range = 5;
+        this.attackPeriod = enemy.attack_period ? enemy.attack_period : 1500;
         const movingframe = gameScript.enemy(this.enemy.enemy).movingframe;
         if (movingframe) {
             this.createAnimationByFrame(gamescene, movingframe.left, Direction.LEFT, "moving");
@@ -93,21 +97,17 @@ class Enemy extends Player {
         this.createAnimation(gameScene, frame.start, frame.end, direction, state, `enemy_${this.enemy.enemy}`);
     }
 
-    // isAttacking(): boolean {
-    //     return true;
-    // }
-
     update(time: number, delta: number, players: Array<Player>) {
         const userPlayer = players.filter(player => player instanceof UserPlayer);
         this.enemyControl.update(time, delta, userPlayer);
         this.gridPhysics.update(delta, players);
-        this.updateEnemies(userPlayer, time, 10, 800, 10);
+        this.updateEnemies(userPlayer, time);
         this.drawHealthBar();
     }
 
-    updateEnemies(enemies: Player[], _time: number, ap: number, attackingSpeed: number, range: number): void {
+    updateEnemies(enemies: Player[], _time: number): void {
         const userPlayer = enemies[0];
-        if (this.insideRange(userPlayer, 10)) {
+        if (this.insideRange(userPlayer, this.range)) {
             const ePos = this.getPosition();
             const pPos = userPlayer.getPosition();
             const diffX = Math.abs(ePos.x - pPos.x);
@@ -119,7 +119,7 @@ class Enemy extends Player {
                 this.startAnimation(ePos.y < pPos.y ? Direction.UP : Direction.DOWN, true);
             }
         }
-        super.updateEnemies(enemies, _time, this.ap, 800, 10);
+        super.updateEnemies(enemies, _time, this.ap, this.attackPeriod, this.range);
     }
 
     private talking = false;

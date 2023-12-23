@@ -28,8 +28,8 @@ export class UserPlayer extends Player {
   private maxHp: integer = 100;
   private hp: integer = 100;
   private ap: integer = 3;
-  private range: integer = 10;
-  private attackingSpeed = 1000;
+  private range: integer = 15;
+  private attackPeriod = 1000;
   private userAttacking = false;
 
   swordSprite!: Phaser.GameObjects.Sprite;
@@ -103,7 +103,7 @@ export class UserPlayer extends Player {
 
   setUserAttacking(attacking: boolean, _time: number): boolean {
     if (this.userAttacking == attacking) return this.userAttacking;
-    if (this.lastAttack && _time - this.lastAttack < this.attackingSpeed) return this.userAttacking;
+    if (this.lastAttack && _time - this.lastAttack < this.attackPeriod) return this.userAttacking;
     this.userAttacking = attacking;
     if (this.userAttacking) this.startAnimation(this.getFaceDirection(), this.userAttacking);
     else this.stopAnimation(this.getFaceDirection());
@@ -139,7 +139,7 @@ export class UserPlayer extends Player {
       this.showHint(prevInteractive);
     }
 
-    this.updateEnemies(enemies, _time, this.ap, this.attackingSpeed, this.range);
+    this.updateEnemies(enemies, _time, this.ap, this.attackPeriod, this.range);
     this.drawHealthBar();
   }
 

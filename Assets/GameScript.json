@@ -1,5 +1,66 @@
 {
     "maps": {
+        "village": {
+            "tiledMap": "assets/village.json",
+            "startPos": {
+                "x": 6,
+                "y": 6
+            },
+            "entrance": [
+                {
+                    "x": 10,
+                    "y": 1,
+                    "to": "cave",
+                    "toX": 27,
+                    "toY": 18
+                },
+                {
+                    "x": 11,
+                    "y": 8,
+                    "to": "shopinside",
+                    "toX": 3,
+                    "toY": 7
+                }
+            ],
+            "villagers": [
+                {
+                    "name": "羅伯特",
+                    "villager": "1",
+                    "pos": {
+                        "x": 2,
+                        "y": 4
+                    },
+                    "asset": "assets/Villager 01.png",
+                    "state": "stay",
+                    "sentences": [
+                        "今天天氣真好，適合砍材",
+                        "村裡聽說來了隻青蛙",
+                        "你知道艾倫嗎?他總是在那邊跑來跑去"
+                    ]
+                },
+                {
+                    "name": "艾倫",
+                    "villager": "3",
+                    "pos": {
+                        "x": 15,
+                        "y": 15
+                    },
+                    "asset": "assets/Villager 03.png",
+                    "state": "movingaround",
+                    "movingrange": {
+                        "width": 3,
+                        "height": 3
+                    },
+                    "sentences":[
+                        "跑啊跑啊",
+                        "青蛙會不會咬人?",
+                        "哇哈哈哈哈哈 ?!",
+                        "..."
+                    ]
+                }
+
+            ]
+        },
         "smallvillage": {
             "tiledMap": "assets/smallvillage.json",
             "startPos": {
@@ -137,5 +198,5 @@
             ]
         }
     },
-    "startMap": "smallvillage"
+    "startMap": "village"
 }

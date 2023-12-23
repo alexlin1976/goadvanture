@@ -178,12 +178,12 @@ export class Player {
 
   // Attacking
   lastAttack?: number = undefined;
-  updateEnemies(enemies: Array<Player>, _time: number, ap: integer, attackingSpeed: integer, range: integer) {
+  updateEnemies(enemies: Array<Player>, _time: number, ap: integer, attackPeriod: integer, range: integer) {
     if (!this.isAttacking()) {
       this.lastAttack = undefined;
       return;
     }
-    if (this.lastAttack && _time - this.lastAttack < attackingSpeed) return;
+    if (this.lastAttack && _time - this.lastAttack < attackPeriod) return;
     this.lastAttack = _time;
     for (const enemy of enemies) {
       if (this.insideRange(enemy, range)) {

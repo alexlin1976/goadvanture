@@ -3,14 +3,14 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "village.json",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "": {
             "scaleInDock": 1,
-            "scaleInEditor": 3.02
+            "scaleInEditor": 4.16
         },
         "Animated Doors.tsx": {
             "scaleInDock": 2.1729,
@@ -76,8 +76,8 @@
             "scale": 2.14,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 190.88785046728972,
-                "y": 253.03738317757006
+                "x": 399.7663551401869,
+                "y": 157.24299065420558
             }
         },
         "cave.json#Decoration": {
@@ -117,10 +117,10 @@
         },
         "smallvillage.json": {
             "scale": 1.79,
-            "selectedLayer": 4,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 160.05586592178767,
-                "y": 160.0558659217877
+                "x": 167.31843575418995,
+                "y": 143.85474860335194
             }
         },
         "smallvillage.json#Animated Doors": {
@@ -174,6 +174,44 @@
         },
         "startscene.json#Terrain": {
             "scaleInDock": 1
+        },
+        "village.json": {
+            "scale": 0.9782,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 309.2414639133101,
+                "y": 219.2803107748927
+            }
+        },
+        "village.json#Decoration": {
+            "scaleInDock": 2.8625
+        },
+        "village.json#Doors Windows": {
+            "scaleInDock": 2.1722
+        },
+        "village.json#Floors": {
+            "scaleInDock": 1
+        },
+        "village.json#Marketplace": {
+            "scaleInDock": 2.6119
+        },
+        "village.json#Nature": {
+            "scaleInDock": 1
+        },
+        "village.json#Roofs": {
+            "scaleInDock": 1
+        },
+        "village.json#Smoke": {
+            "scaleInDock": 1
+        },
+        "village.json#Terrain": {
+            "scaleInDock": 2.3224
+        },
+        "village.json#Walls": {
+            "scaleInDock": 1
+        },
+        "village.json#Water": {
+            "scaleInDock": 1.2862
         }
     },
     "frame.defaultDuration": 100,
@@ -186,12 +224,15 @@
     "map.width": 50,
     "openFiles": [
         "cave.json",
-        "smallvillage.json"
+        "village.json",
+        "Marketplace.tsx"
     ],
     "project": "GoAdvanture.tiled-project",
     "property.type": "bool",
     "recentFiles": [
         "cave.json",
+        "Marketplace.tsx",
+        "village.json",
         "smallvillage.json",
         "Decoration.tsx",
         "Floors.tsx",
@@ -200,9 +241,7 @@
         "shopinside.json",
         "Village Animated Water.tsx",
         "Odderf-Attack-Sheet.tsx",
-        "Water.tsx",
-        "Smoke.tsx",
-        "Animated Doors.tsx"
+        "Water.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -5,6 +5,7 @@
             "min": 120,
             "max": 200
         },
+        "attack_period": 1000,
         "ap": 30,
         "idleframe": {
             "left": {
@@ -49,6 +50,7 @@
             "min": 120,
             "max": 200
         },
+        "attack_period": 1000,
         "ap": 25,
         "idleframe": {
             "left": {
@@ -93,6 +95,7 @@
             "min": 120,
             "max": 200
         },
+        "attack_period": 1000,
         "ap": 50,
         "idleframe": {
             "left": {
@@ -134,6 +137,7 @@
     "m0_0": {
         "asset": "assets/monsters/_srw_monsters_0_0.png",
         "name": "綠色史萊姆",
+        "attack_period": 1000,
         "ap": 1,
         "hp": {
             "min": 10,
@@ -187,6 +191,7 @@
             "min": 15,
             "max": 20
         },
+        "attack_period": 1000,
         "ap": 1,
         "slice": {
             "width": 48,
@@ -236,6 +241,7 @@
             "min": 15,
             "max": 25
         },
+        "attack_period": 1000,
         "ap": 3,
         "slice": {
             "width": 48,
@@ -285,6 +291,7 @@
             "min": 15,
             "max": 25
         },
+        "attack_period": 1000,
         "ap": 5,
         "slice": {
             "width": 48,
@@ -334,6 +341,7 @@
             "min": 10,
             "max": 15
         },
+        "attack_period": 1500,
         "ap": 10,
         "slice": {
             "width": 48,
@@ -383,6 +391,7 @@
             "min": 10,
             "max": 15
         },
+        "attack_period": 600,
         "ap": 1,
         "slice": {
             "width": 48,
@@ -432,6 +441,7 @@
             "min": 15,
             "max": 25
         },
+        "attack_period": 2000,
         "ap": 15,
         "slice": {
             "width": 48,
@@ -481,6 +491,7 @@
             "min": 20,
             "max": 35
         },
+        "attack_period": 2500,
         "ap": 20,
         "slice": {
             "width": 48,
