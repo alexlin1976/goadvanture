@@ -6,6 +6,8 @@ import { GridPhysics } from "./GridPhysics";
 import { Player } from "./Player";
 import { EnemyControl } from "./EnemyControl";
 import { UserPlayer } from "./UserPlayer";
+import Reward, { Exp, Gold } from "./Reward";
+import { printObjectContents } from ".";
 
 export enum EnemyState {
     IDLE = "idle",
@@ -169,14 +171,38 @@ class Enemy extends Player {
         return this.hp / this.maxHp;
     }
 
-    hitby(ap: integer) {
+    hitby(ap: integer, player: Player) {
         console.log(`hit by player by ${ap}`);
         this.hp -= ap;
         if (this.hp <= 0) {
             this.hp = 0;
             this.dead();
+            this.rewardPlayer(player);
         }
         this.drawHealthBar();
+    }
+
+    rewardPlayer(player: Player) {
+        if (!this.enemy.rewards) {
+            return;
+        }
+        var rewards: Reward[] = [];
+        for (const reward of this.enemy.rewards) {
+            const possiblity = reward.possibility / 100;
+            if (Math.random() <= possiblity) {
+                if (reward.exp) {
+                    const exp = new Exp(reward.exp.min, reward.exp.max);
+                    rewards.push(exp);
+                }
+                if (reward.gold) {
+                    const gold = new Gold(reward.gold.min, reward.gold.max);
+                    rewards.push(gold);
+                }
+            }
+        }
+        if (rewards.length > 0) {
+            player.receiveRewards(rewards);
+        }
     }
 }
 export default Enemy;

@@ -1,0 +1,42 @@
+{
+    "frog hero": {
+        "name": "來去",
+        "start_ap": 10,
+        "start_hp": 100,
+        "start_attack_period": 1000,
+        "start_gold": 500,
+        "level_settings": [
+            {
+                "from": 1,
+                "to": 10,
+                "exp": 100,
+                "ap": 5,
+                "hp": 10,
+                "attack_period": -10
+            },
+            {
+                "from": 11,
+                "to": 25,
+                "exp": 150,
+                "ap": 10,
+                "hp": 20,
+                "attack_period": -5
+            },
+            {
+                "from": 26,
+                "to": 45,
+                "exp": 250,
+                "ap": 20,
+                "hp": 30,
+                "attack_period": -5
+            },
+            {
+                "from": 46,
+                "exp": 500,
+                "ap": 25,
+                "hp": 30,
+                "attack_period": -3
+            }
+        ]
+    }
+}

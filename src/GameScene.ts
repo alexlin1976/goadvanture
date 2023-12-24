@@ -3,7 +3,7 @@ import { UserPlayer } from "./UserPlayer";
 import { UserPlayerControls } from "./UserPlayerControls";
 import { GridPhysics } from "./GridPhysics";
 import { DoorControls } from "./DoorControls";
-import { gameScript } from "./GameScriptLoader";
+import { frogHero, gameScript } from "./GameScriptLoader";
 import GameMap from "./GameMap";
 import Villager from "./Villager";
 import { AnimationSet, animationSet } from "./AnimationSet";
@@ -50,6 +50,7 @@ export class GameScene extends Phaser.Scene {
 
     const startPos = GameScene.startPos != null ? GameScene.startPos : this.gamemap.startPos();
     const player = new UserPlayer(
+      frogHero,
       map,
       startPos, 
       this,

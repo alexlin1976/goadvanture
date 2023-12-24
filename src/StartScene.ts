@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { GameScene } from './GameScene';
-import { gameScript } from './GameScriptLoader';
+import { frogHero, gameScript } from './GameScriptLoader';
 
 export class StartScene extends Phaser.Scene {
   private backgroundImage: Phaser.GameObjects.TileSprite | undefined;
@@ -81,14 +81,40 @@ export class StartScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive();
 
-    button.on('pointerdown', () => {
-      console.log(`start scene = ${gameScript.startScene()}`)
-      GameScene.createKey = gameScript.startScene();
-      GameScene.startPos = undefined;
-      this.game.scene.add(gameScript.startScene(), GameScene);
-      this.scene.start(gameScript.startScene(), { remove: true });
-    });
-
+      button.on('pointerdown', () => {
+        console.log(`start scene = ${gameScript.startScene()}`)
+        GameScene.createKey = gameScript.startScene();
+        GameScene.startPos = undefined;
+        this.game.scene.add(gameScript.startScene(), GameScene);
+        this.scene.start(gameScript.startScene(), { remove: true });
+      });
+  
+    if (sessionStorage.getItem('playerData')) {
+      const button1 = this.add.text(
+        this.game.renderer.width / 2,
+        this.game.renderer.height / 2 + 52,
+        '讀取遊戲',
+        {
+          fontSize: '48px',
+          color: '#AA0000', // Use color instead of fill
+        }
+      )
+        .setOrigin(0.5)
+        .setInteractive();
+      button1.on('pointerdown', () => {
+        const serializedData = sessionStorage.getItem('playerData');
+        console.log(`start scene = ${gameScript.startScene()}`)
+        if (serializedData) {
+          console.log(`load frog hero from ${serializedData}`);
+          frogHero.load(serializedData);
+        }
+        GameScene.createKey = gameScript.startScene();
+        GameScene.startPos = undefined;
+        this.game.scene.add(gameScript.startScene(), GameScene);
+        this.scene.start(gameScript.startScene(), { remove: true });
+      });
+    }
+  
     // Create a game title with different colored characters
     this.createGameTitle('來去大冒險!', this.cameras.main.width / 2, this.cameras.main.height / 4);
   }

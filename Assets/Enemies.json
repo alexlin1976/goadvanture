@@ -143,6 +143,17 @@
             "min": 10,
             "max": 15
         },
+        "rewards": [
+            {
+                "exp": {"min": 1, "max": 2},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 1, "max": 10},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48
@@ -193,6 +204,17 @@
         },
         "attack_period": 1000,
         "ap": 1,
+        "rewards": [
+            {
+                "exp": {"min": 1, "max": 2},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 1, "max": 10},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48
@@ -243,6 +265,17 @@
         },
         "attack_period": 1000,
         "ap": 3,
+        "rewards": [
+            {
+                "exp": {"min": 2, "max": 2},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 5, "max": 15},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48
@@ -293,6 +326,17 @@
         },
         "attack_period": 1000,
         "ap": 5,
+        "rewards": [
+            {
+                "exp": {"min": 3, "max": 5},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 5, "max": 20},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48
@@ -343,6 +387,17 @@
         },
         "attack_period": 1500,
         "ap": 10,
+        "rewards": [
+            {
+                "exp": {"min": 1, "max": 2},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 10, "max": 30},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48
@@ -393,6 +448,17 @@
         },
         "attack_period": 600,
         "ap": 1,
+        "rewards": [
+            {
+                "exp": {"min": 1, "max": 2},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 1, "max": 10},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48
@@ -443,6 +509,17 @@
         },
         "attack_period": 2000,
         "ap": 15,
+        "rewards": [
+            {
+                "exp": {"min": 5, "max": 15},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 5, "max": 10},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48
@@ -493,6 +570,17 @@
         },
         "attack_period": 2500,
         "ap": 20,
+        "rewards": [
+            {
+                "exp": {"min": 10, "max": 30},
+                "possibility": 100
+            },
+            {
+                "gold": {"min": 5, "max": 10},
+                "possibility": 75
+            }
+            
+        ],
         "slice": {
             "width": 48,
             "height": 48

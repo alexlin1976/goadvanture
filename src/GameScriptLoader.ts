@@ -1,7 +1,9 @@
 // GameScriptLoader.ts
 
 import GameMap from "./GameMap";
+import PlayerData from "./PlayerData";
 
+export let frogHero!: PlayerData;
 class GameScriptLoader {
   script: any;
   villagers: any;
@@ -27,8 +29,20 @@ class GameScriptLoader {
     this.script = await this.loadJson('assets/GameScript.json');
     console.log('Game script loaded:', this.script);
     this.villagers = await this.loadJson('assets/Villagers.json');
-    console.log('Villagers loaded:', this.script);
+    console.log('Villagers loaded:', this.villagers);
     this.enemies = await this.loadJson('assets/Enemies.json')
+    let playerData = await this.loadJson('assets/CharacterData.json')
+    console.log('Player loaded:', playerData);
+    let frogHeroData = playerData["frog hero"]
+    frogHero = new PlayerData(
+      frogHeroData,
+      frogHeroData.start_ap, 
+      frogHeroData.start_attack_period, 
+      frogHeroData.start_hp, 
+      frogHeroData.start_hp,
+      1,
+      0,
+      frogHeroData.start_gold);
   }
 
   startScene() {

@@ -3,6 +3,8 @@ import Enemy from "./Enemy";
 import GameMap from "./GameMap";
 import { GameScene } from "./GameScene";
 import { Player } from "./Player";
+import PlayerData from "./PlayerData";
+import Reward, { Exp, Gold } from "./Reward";
 import Villager from "./Villager";
 
 export class UserPlayer extends Player {
@@ -25,15 +27,12 @@ export class UserPlayer extends Player {
     });
   }
 
-  private maxHp: integer = 100;
-  private hp: integer = 100;
-  private ap: integer = 3;
   private range: integer = 15;
-  private attackPeriod = 1000;
   private userAttacking = false;
 
   swordSprite!: Phaser.GameObjects.Sprite;
   constructor(
+    private playerData: PlayerData,
     private tileMap: Phaser.Tilemaps.Tilemap, 
     tilePos: Phaser.Math.Vector2,
     gamescene: GameScene,
@@ -103,7 +102,7 @@ export class UserPlayer extends Player {
 
   setUserAttacking(attacking: boolean, _time: number): boolean {
     if (this.userAttacking == attacking) return this.userAttacking;
-    if (this.lastAttack && _time - this.lastAttack < this.attackPeriod) return this.userAttacking;
+    if (this.lastAttack && _time - this.lastAttack < this.playerData.getAttackSpeed()) return this.userAttacking;
     this.userAttacking = attacking;
     if (this.userAttacking) this.startAnimation(this.getFaceDirection(), this.userAttacking);
     else this.stopAnimation(this.getFaceDirection());
@@ -139,7 +138,7 @@ export class UserPlayer extends Player {
       this.showHint(prevInteractive);
     }
 
-    this.updateEnemies(enemies, _time, this.ap, this.attackPeriod, this.range);
+    this.updateEnemies(enemies, _time, this.playerData.getAp(), this.playerData.getAttackSpeed(), this.range);
     this.drawHealthBar();
   }
 
@@ -179,11 +178,11 @@ export class UserPlayer extends Player {
     this.swordSprite.setPosition(position.x, position.y);
   }
 
-  hitby(ap: number): void {
-    this.hp -= ap;
+  hitby(ap: number, player: Player): void {
+    this.playerData.changeHp(-ap);
     this.drawHealthBar();
 
-    if (this.hp <= 0)
+    if (this.playerData.getHp() <= 0)
       this.dead();
   }
 
@@ -193,11 +192,72 @@ export class UserPlayer extends Player {
     this.sprite.setTexture("player-dead");
     this.sprite.anims.play("player-death").on('animationcomplete', () => {
       this.sprite.anims.stop();
-  });
+    });
 
   }
 
   getHealth(): number {
-    return this.hp / this.maxHp;
+    return this.playerData.getHp() / this.playerData.getMaxHp();
+  }
+
+  private textQueue: string[] = [];
+  private drawTextUp(text: string) {
+    this.textQueue.push(text);
+
+    // Check if no text is currently being shown
+    if (this.textQueue.length === 1) {
+      this.showNextText();
+    }
+  }
+
+  private showNextText() {
+    const nextText = this.textQueue[0];
+
+    if (nextText) {
+      const text = this.getSprite().scene.add.text(this.getPosition().x + 24, this.getPosition().y + 24, nextText, {
+        fontSize: '24px',
+        color: '#FFA500',
+      });
+      text.setOrigin(0.5, 0.5);
+      text.setDepth(5);
+
+      this.getSprite().scene.tweens.add({
+        targets: text,
+        y: this.getPosition().y - 24,
+        duration: 500,
+        ease: 'Linear',
+        onComplete: () => {
+          // Remove the displayed text from the queue
+          this.textQueue.shift();
+          text.destroy();
+          // Show the next text if the queue is not empty
+          if (this.textQueue.length > 0) {
+            this.showNextText();
+          }
+        },
+      });
+    }
+  }
+
+  receiveRewards(rewards: Reward[]): void {
+    let levelUp: boolean = false;
+    for (const reward of rewards) {
+      if (reward instanceof Exp) {
+        const exp: Exp = reward;
+        console.log(`get ${exp.getAmount()} EXP`);
+        this.drawTextUp(`${exp.getAmount()} EXP`);
+        levelUp = this.playerData.changeExperience(exp.getAmount());
+      }
+      else if (reward instanceof Gold) {
+        const gold: Gold = reward;
+        console.log(`get ${gold.getAmount()} golds`);
+        this.drawTextUp(`${gold.getAmount()} G`);
+        this.playerData.changeGold(gold.getAmount());
+      }
+    }
+    if (levelUp) {
+      this.drawTextUp("LEVEL UP!!!");
+    }
+    this.playerData.save();
   }
 }

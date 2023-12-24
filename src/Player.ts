@@ -1,5 +1,6 @@
 import { Direction } from "./Direction";
 import { GameScene } from "./GameScene";
+import Reward, { Exp, Gold } from "./Reward";
 
 export class Player {
   private bubbleGraphics: Phaser.GameObjects.Graphics;
@@ -197,12 +198,26 @@ export class Player {
           case Direction.RIGHT:facing = ePos.x >= pPos.x;break;
           default:break;
         }
-        if (facing) enemy.hitby(ap);
+        if (facing) enemy.hitby(ap, this);
       }
     }
   }
 
-  hitby(ap: integer) {
+  hitby(ap: integer, player: Player) {
 
+  }
+
+  receiveRewards(rewards: Reward[]) {
+    console.log("Receiving rewards")
+    for (const reward of rewards) {
+      if (reward instanceof Exp) {
+        const exp: Exp = reward;
+        console.log(`get ${exp.getAmount()} experiences`);
+      }
+      if (reward instanceof Gold) {
+        const gold: Gold = reward;
+        console.log(`get ${gold.getAmount()} golds`);
+      }
+    }
   }
 }
