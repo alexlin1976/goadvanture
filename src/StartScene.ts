@@ -89,7 +89,7 @@ export class StartScene extends Phaser.Scene {
         this.scene.start(gameScript.startScene(), { remove: true });
       });
   
-    if (sessionStorage.getItem('playerData')) {
+    if (localStorage.getItem('playerData')) {
       const button1 = this.add.text(
         this.game.renderer.width / 2,
         this.game.renderer.height / 2 + 52,
@@ -102,7 +102,7 @@ export class StartScene extends Phaser.Scene {
         .setOrigin(0.5)
         .setInteractive();
       button1.on('pointerdown', () => {
-        const serializedData = sessionStorage.getItem('playerData');
+        const serializedData = localStorage.getItem('playerData');
         console.log(`start scene = ${gameScript.startScene()}`)
         if (serializedData) {
           console.log(`load frog hero from ${serializedData}`);

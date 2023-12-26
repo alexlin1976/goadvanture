@@ -26,7 +26,7 @@ export default class PlayerData {
     save() {
         const jsonString = JSON.stringify(this.toJSON());
         console.log(`serialize the player data ${jsonString}`);
-        sessionStorage.setItem('playerData', jsonString);
+        localStorage.setItem('playerData', jsonString);
     }
 
     load(serializedData: string) {
