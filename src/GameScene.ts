@@ -9,6 +9,7 @@ import Villager from "./Villager";
 import { AnimationSet, animationSet } from "./AnimationSet";
 import { Player } from "./Player";
 import Enemy from "./Enemy";
+import StatusScene from "./StatusScene";
 
 export class GameScene extends Phaser.Scene {
   static readonly TILE_SIZE = 48;
@@ -69,6 +70,11 @@ export class GameScene extends Phaser.Scene {
 
     animationSet.createTileMapAnimation(map, this);
     this.aKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.input.keyboard!.on('keydown-ESC', () => {
+      if (this.scene.get('StatusScene') === null) {
+        this.scene.add('StatusScene', StatusScene, true) as StatusScene;
+      }
+    });  
   }
 
   private aKey!: Phaser.Input.Keyboard.Key;
