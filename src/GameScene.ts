@@ -72,7 +72,9 @@ export class GameScene extends Phaser.Scene {
     this.aKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.input.keyboard!.on('keydown-ESC', () => {
       if (this.scene.get('StatusScene') === null) {
-        this.scene.add('StatusScene', StatusScene, true) as StatusScene;
+        const scene = this.scene.add('StatusScene', StatusScene, true) as StatusScene;
+        scene.currentSceneKey = this.scene.key;
+        this.scene.pause();
       }
     });  
   }

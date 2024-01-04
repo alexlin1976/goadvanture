@@ -1,6 +1,7 @@
 import { frogHero } from "./GameScriptLoader";
 
 export default class StatusScene extends Phaser.Scene {
+    currentSceneKey: string = "";
     constructor() {
       super({ key: 'StatusScene' });
     }
@@ -42,6 +43,7 @@ export default class StatusScene extends Phaser.Scene {
     private closeDialog() {
       this.scene.stop('StatusScene');
       this.game.scene.remove('StatusScene');
+      this.game.scene.resume(this.currentSceneKey);
     }
   }
   
