@@ -52,6 +52,10 @@ export default class PlayerData {
         return this.attackSpeed;
     }
 
+    getCastCoolDown(): integer {
+        return 2000;
+    }
+
     getHp(): integer {
         return this.hp;
     }

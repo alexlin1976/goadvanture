@@ -2,6 +2,7 @@ import { Direction } from "./Direction";
 import Enemy from "./Enemy";
 import GameMap from "./GameMap";
 import { GameScene } from "./GameScene";
+import MagicObject, { Fireball } from "./MagicObject";
 import { Player } from "./Player";
 import PlayerData from "./PlayerData";
 import Reward, { Exp, Gold } from "./Reward";
@@ -29,13 +30,16 @@ export class UserPlayer extends Player {
 
   private range: integer = 15;
   private userAttacking = false;
+  private userCasting = false;
+  private lastStartCasting: number | null = null;
+  private castingPeriod: number = 1000;
 
   swordSprite!: Phaser.GameObjects.Sprite;
   constructor(
     private playerData: PlayerData,
     private tileMap: Phaser.Tilemaps.Tilemap, 
     tilePos: Phaser.Math.Vector2,
-    gamescene: GameScene,
+    private gamescene: GameScene,
     private gamemap: GameMap,
     private newMap: (newMap: any) => void,
   ) {
@@ -109,8 +113,37 @@ export class UserPlayer extends Player {
     return this.userAttacking;
   }
 
+  setUserCasting(casting: boolean, _time: number): boolean {
+    if (this.userCasting && this.lastStartCasting && 
+      (_time - this.lastStartCasting) < this.castingPeriod) {
+        return true;
+    }
+    if (casting && !this.userCasting) {
+      this.userCasting = true;
+      this.lastStartCasting = _time;
+      this.startMagic();
+      setTimeout(() => {
+        console.log("Magic cool down");
+        this.userCasting = false;
+      }, this.playerData.getCastCoolDown());
+      return true;
+    }
+    return false;
+  }
+
+  private magicObjects: MagicObject[] = [];
+  startMagic() {
+    console.log("start magic!!!");
+    const magicObject = new Fireball(this.gamescene, this, 200, 100, this.getFaceDirection());
+    this.magicObjects.push(magicObject);
+  }
+
+  magicDone(finished: MagicObject) {
+    this.magicObjects = this.magicObjects.filter(obj => obj !== finished);
+  }
+
   currentInteractive?: any = null;
-  update(villagers: Array<Villager>, interact: boolean, enemies: Array<Enemy>, _time: number) {
+  update(villagers: Array<Villager>, interact: boolean, enemies: Array<Enemy>, _delta: number, _time: number) {
     if (this.isDead()) return;
     const prevInteractive = this.currentInteractive;
     const addition = this.faceDirectionVectors[this.getFaceDirection()];
@@ -136,6 +169,12 @@ export class UserPlayer extends Player {
     }
     else {
       this.showHint(prevInteractive);
+    }
+
+    if (this.magicObjects) {
+      this.magicObjects.forEach(element => {
+        element.update(_delta, this.tileMap, enemies);
+      });
     }
 
     this.updateEnemies(enemies, _time, this.playerData.getAp(), this.playerData.getAttackSpeed(), this.range);

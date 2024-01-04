@@ -12,20 +12,30 @@ export class UserPlayerControls {
   ) {}
 
   update(_time: number, delta: number) {
-    const space = this.input.keyboard?.addKey("SPACE");
-    const attacking = this.userPlayer.setUserAttacking(space?.isDown ?? false, _time);
+    const space = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    const dKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+    let attacking = false;
+    let casting = false;
+    if (space.isDown) {
+      attacking = true;
+    }
+    if (dKey.isDown) {
+      casting = true;
+    }
+    attacking = this.userPlayer.setUserAttacking(attacking, _time);
+    casting = this.userPlayer.setUserCasting(casting, _time);
     const cursors = this.input.keyboard?.createCursorKeys();
     if (cursors?.left.isDown) {
-      this.gridPhysics.movePlayer(Direction.LEFT, attacking);
+      this.gridPhysics.movePlayer(Direction.LEFT, attacking || casting);
       this.doorControls.movePlayer(Direction.LEFT);
     } else if (cursors?.right.isDown) {
-      this.gridPhysics.movePlayer(Direction.RIGHT, attacking);
+      this.gridPhysics.movePlayer(Direction.RIGHT, attacking || casting);
       this.doorControls.movePlayer(Direction.RIGHT);
     } else if (cursors?.up.isDown) {
-      this.gridPhysics.movePlayer(Direction.UP, attacking);
+      this.gridPhysics.movePlayer(Direction.UP, attacking || casting);
       this.doorControls.movePlayer(Direction.UP);
     } else if (cursors?.down.isDown) {
-      this.gridPhysics.movePlayer(Direction.DOWN, attacking);
+      this.gridPhysics.movePlayer(Direction.DOWN, attacking || casting);
       this.doorControls.movePlayer(Direction.DOWN);
     }
     else {
